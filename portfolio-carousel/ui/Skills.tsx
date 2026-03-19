@@ -1,19 +1,31 @@
-// components/Skills.tsx
+// components/SkillsMinimal.tsx
 'use client';
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { 
+  SiReact, 
+  SiTypescript, 
+  SiNodedotjs, 
+  SiFigma,
+  SiMongodb,
+  SiGraphql,
+  SiNextdotjs,
+  SiTailwindcss
+} from 'react-icons/si';
 
 const skills = [
-  { name: 'React/Next.js', level: 90, color: 'bg-blue-500' },
-  { name: 'TypeScript', level: 85, color: 'bg-green-500' },
-  { name: 'Node.js', level: 80, color: 'bg-yellow-500' },
-  { name: 'UI/UX Design', level: 75, color: 'bg-purple-500' },
-  { name: 'MongoDB', level: 70, color: 'bg-red-500' },
-  { name: 'GraphQL', level: 65, color: 'bg-indigo-500' },
+  { name: 'React', icon: SiReact, level: 90, color: '#61DAFB' },
+  { name: 'TypeScript', icon: SiTypescript, level: 85, color: '#3178C6' },
+  { name: 'Next.js', icon: SiNextdotjs, level: 88, color: '#000000' },
+  { name: 'Node.js', icon: SiNodedotjs, level: 80, color: '#339933' },
+  { name: 'Tailwind', icon: SiTailwindcss, level: 95, color: '#06B6D4' },
+  { name: 'MongoDB', icon: SiMongodb, level: 75, color: '#47A248' },
+  { name: 'GraphQL', icon: SiGraphql, level: 70, color: '#E10098' },
+  { name: 'Figma', icon: SiFigma, level: 82, color: '#F24E1E' },
 ];
 
-export default function Skills() {
+export default function SkillsMinimal() {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -25,32 +37,46 @@ export default function Skills() {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-center mb-12"
+          className="text-4xl font-bold text-center mb-4"
         >
-          Mes Compétences
+          Expertise Technique
         </motion.h2>
-        
-        <div className="max-w-3xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.2 }}
+          className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
+        >
+          Des technologies modernes pour des solutions performantes
+        </motion.p>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {skills.map((skill, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -50 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="mb-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5 }}
+              className="group relative bg-gray-50 rounded-xl p-6 hover:bg-white hover:shadow-xl transition-all duration-300"
             >
-              <div className="flex justify-between mb-2">
-                <span className="font-semibold text-gray-700">{skill.name}</span>
-                <span className="text-gray-600">{skill.level}%</span>
+              <skill.icon 
+                className="w-12 h-12 mx-auto mb-3 transition-transform group-hover:scale-110" 
+                style={{ color: skill.color }}
+              />
+              <h3 className="text-center font-semibold text-gray-800 mb-2">{skill.name}</h3>
+              <div className="relative pt-1">
+                <div className="overflow-hidden h-2 text-xs flex rounded-full bg-gray-200">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={inView ? { width: `${skill.level}%` } : {}}
+                    transition={{ duration: 1, delay: index * 0.1 }}
+                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-linear-to-r from-blue-500 to-purple-500"
+                  />
+                </div>
               </div>
-              <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={inView ? { width: `${skill.level}%` } : {}}
-                  transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                  className={`h-full ${skill.color} rounded-full`}
-                />
+              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-xs font-bold text-gray-500">{skill.level}%</span>
               </div>
             </motion.div>
           ))}
