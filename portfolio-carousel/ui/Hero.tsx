@@ -162,10 +162,10 @@ export default function HeroCyberpunk() {
           className="relative mb-4"
         >
           <span className="absolute inset-0 text-7xl md:text-9xl font-black text-cyan-500 blur-2xl opacity-50 animate-pulse">
-            JOHN DOE
+            Cédric Kuchen
           </span>
           <span className="relative text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 [text-shadow:0_0_30px_rgba(0,255,255,0.5)]">
-            JOHN DOE
+            Cédric Kuchen
           </span>
         </motion.h1>
 
@@ -209,15 +209,15 @@ export default function HeroCyberpunk() {
           className="flex justify-center gap-8 mb-12 font-mono"
         >
           {[
-            { label: 'PROJECTS', value: '50+', color: 'cyan' },
-            { label: 'EXPERIENCE', value: '5+', color: 'purple' },
-            { label: 'COMMITS', value: '2.5k', color: 'pink' },
+            { label: 'PROJECTS', value: '50+', colorClass: 'text-cyan-400', labelClass: 'text-cyan-400/60' },
+            { label: 'EXPERIENCE', value: '5+', colorClass: 'text-purple-400', labelClass: 'text-purple-400/60' },
+            { label: 'COMMITS', value: '2.5k', colorClass: 'text-pink-400', labelClass: 'text-pink-400/60' },
           ].map((stat, i) => (
             <div key={i} className="text-center group">
-              <div className={`text-3xl font-bold text-${stat.color}-400 group-hover:animate-pulse`}>
+              <div className={`text-3xl font-bold ${stat.colorClass} group-hover:animate-pulse`}>
                 {stat.value}
               </div>
-              <div className={`text-xs text-${stat.color}-400/60 tracking-wider`}>
+              <div className={`text-xs ${stat.labelClass} tracking-wider`}>
                 [{stat.label}]
               </div>
             </div>
@@ -273,8 +273,8 @@ export default function HeroCyberpunk() {
         >
           <div className="border border-gray-800 bg-black/50 p-4 rounded-sm backdrop-blur-sm">
             <p className="text-cyan-400">$ █ system_info</p>
-            <p className="text-gray-400">OS: CYBERPUNK_2077</p>
-            <p className="text-gray-400">USER: john_doe</p>
+            <p className="text-gray-400">OS: Linux_2077</p>
+            <p className="text-gray-400">USER: cedric_kuchen</p>
             <p className="text-gray-400">STATUS: 
               <span className="text-green-400 animate-pulse"> ACTIVE</span>
             </p>
