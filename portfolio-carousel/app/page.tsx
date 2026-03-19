@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Hero from '@/ui/Hero';
 import Carousel from '@/ui/Carousel';
 import Skills from '@/ui/Skills';
-import ContactSection from '@/ui/Contact';
+import Contact from '@/ui/Contact';
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -27,7 +27,7 @@ export default function Home() {
       <Hero />
       <Skills />
       <Carousel />
-      <ContactSection />
+      <Contact />
     </main>
   );
 }
