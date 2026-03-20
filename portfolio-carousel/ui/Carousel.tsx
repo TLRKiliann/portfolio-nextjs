@@ -18,8 +18,8 @@ interface Project {
   description: string;
   image: string;
   technologies: string[];
-  linkYoutube: string;
-  linkGitHub: string;
+  link: string;
+  linkGitHub?: string;
 }
 
 const projects: Project[] = [
@@ -30,8 +30,8 @@ const projects: Project[] = [
     description: "Jeu destiné à la sensibilisation de l'écologie",
     image: "/images/game.png",
     technologies: ["Vite.js", "TypeScript", "CSS"],
-    linkYoutube: "#",
-    linkGitHub: "#"
+    link: "https://mono-game-beta.vercel.app/",
+    linkGitHub: "https://github.com/TLRKiliann/mono-game"
   },
   {
     id: 2,
@@ -40,8 +40,8 @@ const projects: Project[] = [
     description: "Prend l'ip des client avec géolocalisation",
     image: "/images/dashboard.png",
     technologies: ["Next.js", "TypeScript", "PostgreSql", "Tailwind"],
-    linkYoutube: "#",
-    linkGitHub: "#"
+    link: "https://www.youtube.com/watch?v=fMMOh8GGPV0",
+    linkGitHub: "https://github.com/TLRKiliann/Nextjs-Dashboard"
   },
   {
     id: 3,
@@ -50,8 +50,8 @@ const projects: Project[] = [
     description: "Site de skate avec beaucoup de tricks !",
     image: "/images/skate.png",
     technologies: ["Next.js", "TypeScript", "PostgreSql", "Tailwind"],
-    linkYoutube: "#",
-    linkGitHub: "#"
+    link: "https://www.youtube.com/watch?v=cUJHlCAO1qo",
+    linkGitHub: "https://github.com/TLRKiliann/nextjs14-vishwas"
   },
   {
     id: 4,
@@ -60,8 +60,7 @@ const projects: Project[] = [
     description: "Stats des interventions par mois, par année et par intervenant",
     image: "/images/stats.png",
     technologies: ["PHP", "JavaScript", "MySql", "CSS"],
-    linkYoutube: "#",
-    linkGitHub: "#"
+    link: "https://www.youtube.com/watch?v=C30dF36LaZs"
   },
   {
     id: 5,
@@ -70,8 +69,8 @@ const projects: Project[] = [
     description: "Application de soins infirmiers améliorée",
     image: "/images/time-track.png",
     technologies: ["Python", "Tkinter", "MySql"],
-    linkYoutube: "#",
-    linkGitHub: "#"
+    link: "https://www.youtube.com/watch?v=aV-X16sxRoI&list=PLVqrrQlbJDKOem4RhHMXvVJJbq6BOY0Fl&index=3",
+    linkGitHub: "https://github.com/TLRKiliann/timetrack"
   }
 ];
 
@@ -174,19 +173,30 @@ export default function Carousel() {
                   </div>
                   
                   <div className='flex flex-row justify-between'>
+                   
                     <motion.a
-                      href={project.linkYoutube}
+                      href={project.link}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="flex flex-row items-center justify-between px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                     >
-                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                        </svg>
-                      <p className='ml-2'>Voir le projet</p>
+                      {project.link === "https://mono-game-beta.vercel.app/" ? (
+                        <>
+                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 2L2 19h20L12 2z"/>
+                          </svg>
+                          <p className='ml-2'>Lien Vercel</p>
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                          </svg>
+                          <p className='ml-2'>Lien Youtube</p>
+                        </>
+                      )}
                     </motion.a>
 
-               
                     <motion.a
                       href={project.linkGitHub}
                       whileHover={{ scale: 1.05 }}
@@ -200,7 +210,6 @@ export default function Carousel() {
                         <p className='ml-2'>Lien GitHub</p>
                     </motion.a>
                     
-
                   </div>
 
                 </div>

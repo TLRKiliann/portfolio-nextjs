@@ -57,7 +57,7 @@ export default function Contact() {
                     className="flex justify-center gap-6 flex-wrap"
                 >
                     <motion.a
-                        href="https://github.com/votre-compte"
+                        href="https://github.com/TLRKiliann"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ y: -5, scale: 1.1 }}
@@ -70,7 +70,7 @@ export default function Contact() {
                     </motion.a>
 
                     <motion.a
-                        href="https://linkedin.com/in/votre-compte"
+                        href="https://www.linkedin.com/in/cedric-kuchen-dev"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ y: -5, scale: 1.1 }}
@@ -83,7 +83,7 @@ export default function Contact() {
                     </motion.a>
 
                     <motion.a
-                        href="https://codepen.io/votre-compte"
+                        href="https://codepen.io/koalatr33"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ y: -5, scale: 1.1 }}
@@ -96,7 +96,7 @@ export default function Contact() {
                     </motion.a>
 
                     <motion.a
-                        href="https://youtube.com/@votre-compte"
+                        href="https://www.youtube.com/@estebancatanea"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ y: -5, scale: 1.1 }}
