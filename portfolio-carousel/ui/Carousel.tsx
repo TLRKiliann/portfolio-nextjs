@@ -18,45 +18,60 @@ interface Project {
   description: string;
   image: string;
   technologies: string[];
-  link: string;
+  linkYoutube: string;
+  linkGitHub: string;
 }
 
 const projects: Project[] = [
   {
     id: 1,
-    title: "Projet Éco-Connect",
-    category: "Application Web",
-    description: "Plateforme de connexion pour initiatives écologiques locales",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    technologies: ["React", "Node.js", "MongoDB"],
-    link: "#"
+    title: "Mon Eco Pote",
+    category: "Game",
+    description: "Jeu destiné à la sensibilisation de l'écologie",
+    image: "/images/game.png",
+    technologies: ["Vite.js", "TypeScript", "CSS"],
+    linkYoutube: "#",
+    linkGitHub: "#"
   },
   {
     id: 2,
-    title: "ArtVerse Gallery",
-    category: "E-commerce",
-    description: "Galerie d'art virtuelle avec réalité augmentée",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
-    technologies: ["Next.js", "Three.js", "Stripe"],
-    link: "#"
+    title: "Dashboard",
+    category: "e-commerce",
+    description: "Prend l'ip des client avec géolocalisation",
+    image: "/images/dashboard.png",
+    technologies: ["Next.js", "TypeScript", "PostgreSql", "Tailwind"],
+    linkYoutube: "#",
+    linkGitHub: "#"
   },
   {
     id: 3,
-    title: "FitLife Tracker",
-    category: "Application Mobile",
-    description: "Application de fitness avec IA personnalisée",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-    technologies: ["React Native", "Firebase", "TensorFlow"],
-    link: "#"
+    title: "Skate-shop",
+    category: "e-commerce",
+    description: "Site de skate avec beaucoup de tricks !",
+    image: "/images/skate.png",
+    technologies: ["Next.js", "TypeScript", "PostgreSql", "Tailwind"],
+    linkYoutube: "#",
+    linkGitHub: "#"
   },
   {
     id: 4,
-    title: "Smart City Dashboard",
-    category: "Data Visualization",
-    description: "Tableau de bord urbain en temps réel",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-    technologies: ["D3.js", "Python", "AWS"],
-    link: "#"
+    title: "Statistiques",
+    category: "WebApp",
+    description: "Stats des interventions par mois, par année et par intervenant",
+    image: "/images/stats.png",
+    technologies: ["PHP", "JavaScript", "MySql", "CSS"],
+    linkYoutube: "#",
+    linkGitHub: "#"
+  },
+  {
+    id: 5,
+    title: "Time-Track",
+    category: "WebApp",
+    description: "Application de soins infirmiers améliorée",
+    image: "/images/time-track.png",
+    technologies: ["Python", "Tkinter", "MySql"],
+    linkYoutube: "#",
+    linkGitHub: "#"
   }
 ];
 
@@ -158,14 +173,36 @@ export default function Carousel() {
                     ))}
                   </div>
                   
-                  <motion.a
-                    href={project.link}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    Voir le projet
-                  </motion.a>
+                  <div className='flex flex-row justify-between'>
+                    <motion.a
+                      href={project.linkYoutube}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex flex-row items-center justify-between px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                      <p className='ml-2'>Voir le projet</p>
+                    </motion.a>
+
+               
+                    <motion.a
+                      href={project.linkGitHub}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex flex-row items-center justify-between px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+
+                        <p className='ml-2'>Lien GitHub</p>
+                    </motion.a>
+                    
+
+                  </div>
+
                 </div>
               </motion.div>
             </SwiperSlide>
