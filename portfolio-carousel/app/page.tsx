@@ -6,6 +6,7 @@ import Hero from '@/ui/Hero';
 import Carousel from '@/ui/Carousel';
 import Skills from '@/ui/Skills';
 import Contact from '@/ui/Contact';
+import Legend from '@/ui/Legend';
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -27,6 +28,7 @@ export default function Home() {
       <Hero />
       <Skills />
       <Carousel />
+      <Legend />
       <Contact />
     </main>
   );
