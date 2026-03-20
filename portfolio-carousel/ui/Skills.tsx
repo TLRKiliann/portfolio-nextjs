@@ -196,7 +196,7 @@ export default function SkillsCyberpunk() {
         </motion.div>
 
         {/* Catégories */}
-        <div className="space-y-40">
+        <div className="space-y-20">
           {Object.entries(groupedSkills).map(([category, categorySkills], categoryIndex) => {
             const config = categoryConfig[category as keyof typeof categoryConfig];
             const isGlitching = glitchIndex === categoryIndex;

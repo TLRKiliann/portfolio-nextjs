@@ -179,13 +179,13 @@ export default function HeroCyberpunk() {
           <span className="text-gray-400">&lt;</span>
           <TypeAnimation
             sequence={[
-              'CYBER_DEVELOPER',
+              'FRONT-END',
               2000,
-              'UI/UX_HACKER',
+              'BACK-END',
               2000,
-              'DIGITAL_CREATOR',
+              'FULL-STACK',
               2000,
-              'CODE_WARRIOR',
+              'API',
               2000,
             ]}
             wrapper="span"
