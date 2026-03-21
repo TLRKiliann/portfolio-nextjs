@@ -186,9 +186,14 @@ export default function Carousel() {
                     alt={project.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-500 brightness-75 group-hover:brightness-100"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500 brightness-85 group-hover:brightness-100"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
+                  {/* Dégradé plus subtil */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent" />
+                  
+                  {/* Ajout d'un effet de lueur au survol */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-linear-to-t from-cyan-500/20 via-transparent to-transparent" />
+
                   
                   {/* Overlay glitch */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

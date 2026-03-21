@@ -33,16 +33,16 @@ export default function Contact() {
       transition={{ delay: 0.3, duration: 0.6 }}
       className="text-xl mb-12 max-w-2xl mx-auto text-cyan-400 font-mono tracking-wide"
     >
-      [ SYSTEM.MSG ] &gt; Besoin de mes services ? Je suis prêt à relever n&apos;importe quel défi.
+      [ SYSTEM.MSG ] &gt; Prêt à transformer vos idées en réalité. Contactez-moi.
     </motion.p>
     
     <motion.a
-      href="mailto:contact@example.com"
+      href="mailto:cedric.kuchen@protonmail.com"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       className="inline-block px-8 py-4 bg-linear-to-r from-cyan-600 to-cyan-700 text-white rounded-lg font-mono font-semibold hover:from-cyan-500 hover:to-cyan-600 transition-all mb-12 border border-cyan-400/30 hover:border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.3)]"
     >
-      &gt; CONTACTEZ-MOI
+      &gt; CONTACT
     </motion.a>
 
     {/* Section Photo avec effet cyberpunk */}
@@ -54,7 +54,9 @@ export default function Contact() {
     >
     <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.5)] relative">
         <Image
-            src="/images/photo_me.png" 
+            src="/images/photo_me.png"
+            width={500}
+            height={500}
             alt="Ma photo"
             className="w-full h-full object-cover relative z-10"
         />
