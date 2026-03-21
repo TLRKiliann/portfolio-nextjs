@@ -1,6 +1,11 @@
 /* app/globals.css */
 @import "tailwindcss";
 
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/effect-coverflow';
+
 /* Vos styles personnalisés */
 
 /* Scanlines CRT Effect */
@@ -128,6 +133,68 @@
 .swiper-button-prev::after,
 .swiper-button-next::after {
   font-size: 20px !important;
+}
+
+/* Style carousel */
+.cyber-bullet {
+  background: rgba(0, 255, 255, 0.3) !important;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.6);
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.cyber-bullet-active {
+  background: #00ffff !important;
+  box-shadow: 0 0 15px #00ffff !important;
+  transform: scale(1.2);
+}
+
+/* Style pour la navigation Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #00ffff !important;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 50%;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: #00ffff;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+/* Correction pour Swiper/Bootstrap Reboot */
+:host:not(button) {
+  background-color: transparent !important;
+}
+
+:host {
+  all: revert;
+  direction: ltr;
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Animation de glitch pour les titres */
+@keyframes glitch {
+  0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
+  95% { transform: skew(0deg, 0deg); opacity: 1; }
+  96% { transform: skew(5deg, 0deg); opacity: 0.8; }
+  97% { transform: skew(-5deg, 0deg); opacity: 0.9; }
+  98% { transform: skew(0deg, 5deg); opacity: 0.8; }
+  99% { transform: skew(0deg, -5deg); opacity: 0.9; }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s ease-in-out;
 }
 
 @media (max-width: 768px) {

@@ -1,29 +1,67 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { useEffect, useRef, useState } from 'react';
 
 export default function HeroCyberpunk() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-  
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const [mounted, setMounted] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [glitchIntensity, setGlitchIntensity] = useState(0);
   const [dimensions, setDimensions] = useState({ width: 1000, height: 800 });
   const [time, setTime] = useState(new Date());
+  const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, code: string, duration: number, delay: number}>>([]);
+  const [glitchOffset, setGlitchOffset] = useState({ x: 0, y: 0 });
 
+  // Gestion du scroll manuelle
   useEffect(() => {
+    if (!mounted || !containerRef.current) return;
+
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollY = window.scrollY;
+      const start = rect.top + scrollY;
+      const end = start + rect.height;
+      const progress = Math.min(Math.max((scrollY - start) / (end - start), 0), 1);
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [mounted]);
+
+  // Calcul des transformations
+  const y = `${scrollProgress * 30}%`;
+  const opacityValue = 1 - scrollProgress * 2;
+
+  // Initialisation des données côté client
+  useEffect(() => {
+    // Initialiser mounted et dimensions
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
     setDimensions({
+       
       width: window.innerWidth,
       height: window.innerHeight
     });
+
+    // Générer les données binaires
+    const generateBinaryData = () => {
+      return Array(20).fill(null).map(() => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        code: Array.from({ length: 20 }, () => Math.round(Math.random())).join(''),
+        duration: Math.random() * 10 + 10,
+        delay: Math.random() * 5
+      }));
+    };
+    setBinaryData(generateBinaryData());
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
@@ -61,16 +99,40 @@ export default function HeroCyberpunk() {
     };
   }, []);
 
+  // Gestion du glitch offset - sans setState dans l'effet
+  useEffect(() => {
+    if (glitchIntensity > 0) {
+      const x = Math.random() * 10 - 5;
+      const y = Math.random() * 10 - 5;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setGlitchOffset({ x, y });
+    } else {
+      setGlitchOffset({ x: 0, y: 0 });
+    }
+  }, [glitchIntensity]);
+
   const glitchStyle = glitchIntensity > 0 ? {
-    transform: `translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px)`,
+    transform: `translate(${glitchOffset.x}px, ${glitchOffset.y}px)`,
     filter: `hue-rotate(${glitchIntensity * 50}deg)`,
   } : {};
 
   // Génération de la grille cyberpunk
   const gridSize = 40;
   const gridLines = [];
-  for (let i = 0; i < dimensions.width / gridSize; i++) {
-    gridLines.push(i * gridSize);
+  if (dimensions.width) {
+    for (let i = 0; i < dimensions.width / gridSize; i++) {
+      gridLines.push(i * gridSize);
+    }
+  }
+
+  if (!mounted) {
+    return (
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+        <div className="text-cyan-400 font-mono text-xl animate-pulse">
+          &gt; INITIALIZING CYBERPUNK SYSTEM...
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -111,26 +173,26 @@ export default function HeroCyberpunk() {
 
       {/* Floating binary code */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {binaryData.map((item, i) => (
           <motion.div
             key={i}
             className="absolute text-cyan-500/20 font-mono text-xs whitespace-nowrap"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${item.left}%`,
+              top: `${item.top}%`,
             }}
             animate={{
               y: [0, -100],
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: item.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: item.delay,
               ease: "linear"
             }}
           >
-            {Array.from({ length: 20 }, () => Math.round(Math.random())).join('')}
+            {item.code}
           </motion.div>
         ))}
       </div>
@@ -140,7 +202,9 @@ export default function HeroCyberpunk() {
         className="relative z-20 text-center px-4 max-w-6xl"
         style={{
           transform: `perspective(1000px) rotateX(${mousePosition.y * 0.5}deg) rotateY(${mousePosition.x * 0.5}deg)`,
-          ...glitchStyle
+          ...glitchStyle,
+          y,
+          opacity: opacityValue
         }}
       >
         {/* Badge "ONLINE" clignotant */}
@@ -282,7 +346,7 @@ export default function HeroCyberpunk() {
           </div>
         </motion.div>
 
-      </motion.div> {/* ← Balise fermante du motion.div principal */}
+      </motion.div>
 
       {/* Effets de lumière néon latéraux */}
       <div className="absolute left-0 top-0 w-1 h-full bg-linear-to-b from-cyan-500 via-purple-500 to-pink-500 opacity-50"></div>

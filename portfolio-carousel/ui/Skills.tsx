@@ -83,8 +83,23 @@ export default function SkillsCyberpunk() {
 
   const [glitchIndex, setGlitchIndex] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mounted, setMounted] = useState(false);
+  const [binaryParticles, setBinaryParticles] = useState<Array<{x: number, y: number, duration: number, delay: number, value: string}>>([]);
 
+  // Tous les hooks doivent être appelés avant les conditions
   useEffect(() => {
+    setMounted(true);
+    
+    // Générer les particules binaires côté client
+    const particles = Array(50).fill(null).map(() => ({
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      duration: Math.random() * 10 + 10,
+      delay: Math.random() * 5,
+      value: Math.random() > 0.5 ? '1' : '0'
+    }));
+    setBinaryParticles(particles);
+
     const glitchInterval = setInterval(() => {
       setGlitchIndex(Math.floor(Math.random() * 4));
     }, 2000);
@@ -113,12 +128,23 @@ export default function SkillsCyberpunk() {
     return acc;
   }, {} as Record<string, typeof skills>);
 
+  // Ne pas retourner de JSX conditionnel avant les hooks
+  if (!mounted) {
+    return (
+      <section className="relative min-h-screen bg-black overflow-hidden py-32 flex items-center justify-center">
+        <div className="text-cyan-400 font-mono text-xl animate-pulse">
+          &gt; LOADING TECH_STACK...
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section ref={ref} className="relative min-h-screen bg-black overflow-hidden py-32">
       {/* Effet de scanlines */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-20"
         style={{
-          background: 'repeating-linear-linear(0deg, rgba(0,255,255,0.03) 0px, rgba(255,0,255,0.03) 2px, transparent 3px, transparent 8px)',
+          background: 'repeating-linear-gradient(0deg, rgba(0,255,255,0.03) 0px, rgba(255,0,255,0.03) 2px, transparent 3px, transparent 8px)',
         }}
       />
 
@@ -126,8 +152,8 @@ export default function SkillsCyberpunk() {
       <div className="absolute inset-0">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-linear(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-            linear-linear(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
           transform: `perspective(500px) rotateX(${mousePosition.y}deg)`,
@@ -136,43 +162,38 @@ export default function SkillsCyberpunk() {
 
       {/* Particules numériques */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
+        {binaryParticles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute text-xs font-mono text-cyan-500/20"
             initial={{
-              x: Math.random() * 100 + '%',
-              y: Math.random() * 100 + '%',
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
             }}
             animate={{
               y: [null, '-100%'],
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: particle.delay,
+              ease: "linear"
             }}
           >
-            {Math.random() > 0.5 ? '1' : '0'}
+            {particle.value}
           </motion.div>
         ))}
       </div>
 
       <div className="container mx-auto px-4 relative z-20">
-        {/* Titre principal avec effet glitch */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-32 relative"
-        >
+        {/* Le reste du contenu inchangé... */}
+        <div className="text-center mb-32 relative">
           <div className="relative inline-block">
             <h1 className="font-black xl:text-7xl md:text-5xl xs:text-2xl mb-4 relative">
               <span className="relative z-10 bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 TECH_STACK
               </span>
-              {/* Effet glitch */}
               <span className="absolute top-0 left-0 -translate-x-1 -translate-y-1 text-cyan-500/30 blur-sm z-0">
                 TECH_STACK
               </span>
@@ -187,13 +208,12 @@ export default function SkillsCyberpunk() {
             </div>
           </div>
           
-          {/* Ligne de code animée */}
           <motion.div
             animate={{ x: ['-100%', '100%'] }}
             transition={{ duration: 3, repeat: Infinity }}
             className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent"
           />
-        </motion.div>
+        </div>
 
         {/* Catégories */}
         <div className="space-y-20">
@@ -214,31 +234,19 @@ export default function SkillsCyberpunk() {
                   {config.binary.repeat(20)}
                 </div>
 
-                {/* En-tête de catégorie avec effet cyberpunk */}
-                <div className="relative"
-                  style={{ marginBottom: '60px', marginTop: '60px' }}
-                >
-                  {/* Fond lumineux */}
-                  <div 
-                    className="absolute inset-0 blur-3xl opacity-20"
-                    style={{ background: config.color }}
-                  />
+                {/* En-tête de catégorie */}
+                <div className="relative" style={{ marginBottom: '60px', marginTop: '60px' }}>
+                  <div className="absolute inset-0 blur-3xl opacity-20" style={{ background: config.color }} />
                   
-                  {/* Titre avec effet glitch */}
                   <div className="relative flex items-center justify-between">
                     <div className="flex-1 h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent" />
                     
                     <motion.div
-                      animate={isGlitching ? {
-                        x: [-5, 5, -5, 5, 0],
-                        skewX: [0, -5, 5, -5, 0],
-                      } : {}}
+                      animate={isGlitching ? { x: [-5, 5, -5, 5, 0], skewX: [0, -5, 5, -5, 0] } : {}}
                       transition={{ duration: 0.2 }}
                       className="relative px-8"
                     >
-                      <h2 className="font-black font-mono relative"
-                        style={{ fontSize: 'clamp(1.5rem, 1vw, 4rem)' }}
-                      >
+                      <h2 className="font-black font-mono relative" style={{ fontSize: 'clamp(1.5rem, 1vw, 4rem)' }}>
                         <span className="relative z-10 text-white">
                           {isGlitching ? config.glitch : config.name}
                         </span>
@@ -254,7 +262,6 @@ export default function SkillsCyberpunk() {
                         )}
                       </h2>
                       
-                      {/* Indicateur "ACTIVE" */}
                       <div className="absolute -right-12 top-1/2 -translate-y-1/2 flex items-center gap-1">
                         <span className="w-1 h-1 bg-green-400 rounded-full animate-ping" />
                         <span className="text-[8px] font-mono text-green-400 tracking-wider">ACTIVE</span>
@@ -264,13 +271,9 @@ export default function SkillsCyberpunk() {
                     <div className="flex-1 h-px bg-linear-to-r from-transparent via-pink-500 to-transparent" />
                   </div>
 
-                  {/* Grille de points */}
                   <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1">
                     {config.grid.split(' ').map((bit, i) => (
-                      <div
-                        key={i}
-                        className={`w-1 h-1 ${bit === '1' ? 'bg-cyan-400' : 'bg-gray-600'}`}
-                      />
+                      <div key={i} className={`w-1 h-1 ${bit === '1' ? 'bg-cyan-400' : 'bg-gray-600'}`} />
                     ))}
                   </div>
                 </div>
@@ -282,114 +285,72 @@ export default function SkillsCyberpunk() {
                       key={skill.name}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={inView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ 
-                        duration: 0.5, 
-                        delay: categoryIndex * 0.3 + skillIndex * 0.1 
-                      }}
+                      transition={{ duration: 0.5, delay: categoryIndex * 0.3 + skillIndex * 0.1 }}
                       whileHover={{ scale: 1.02 }}
                       className="group relative w-full max-w-sm"
                     >
-                      {/* Carte principale */}
                       <div className="relative bg-gray-900/90 backdrop-blur-sm rounded-lg p-6 border border-gray-800 overflow-hidden">
-                        {/* Effet de bordure néon */}
-                        <div 
-                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                          style={{
-                            boxShadow: `inset 0 0 30px ${skill.color}20`,
-                          }}
-                        />
-
-                        {/* Lignes de circuit */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          style={{ boxShadow: `inset 0 0 30px ${skill.color}20` }} />
+                        
                         <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent opacity-0 group-hover:opacity-50" />
                         <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-pink-500 to-transparent opacity-0 group-hover:opacity-50" />
                         
-                        {/* Contenu */}
                         <div className="relative z-10">
-                          {/* Header avec icône */}
                           <div className="flex items-start justify-between mb-4">
                             <div className="relative">
-                              <div className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                                   style={{ background: skill.color }} />
-                              <skill.icon 
-                                className="w-12 h-12 relative z-10 transition-all duration-300 group-hover:scale-110"
-                                style={{ color: skill.color }}
-                              />
+                              <div className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: skill.color }} />
+                              <skill.icon className="w-12 h-12 relative z-10 transition-all duration-300 group-hover:scale-110" style={{ color: skill.color }} />
                             </div>
                             
-                            {/* Pourcentage avec effet cyber */}
                             <div className="relative">
-                              <span className="text-3xl font-black font-mono text-white/10">
-                                {skill.level}
-                              </span>
-                              <span className="absolute inset-0 flex items-center justify-center text-sm font-mono text-cyan-400">
-                                {skill.level}%
-                              </span>
+                              <span className="text-3xl font-black font-mono text-white/10">{skill.level}</span>
+                              <span className="absolute inset-0 flex items-center justify-center text-sm font-mono text-cyan-400">{skill.level}%</span>
                             </div>
                           </div>
 
-                          {/* Nom de la techno */}
                           <h3 className="text-xl font-bold font-mono mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r transition-all"
-                              style={{
-                                backgroundImage: `linear-linear(90deg, ${skill.color}, white)`
-                              }}>
+                            style={{ backgroundImage: `linear-gradient(90deg, ${skill.color}, white)` }}>
                             {skill.name}
                           </h3>
 
-                          {/* Barre de progression cyberpunk */}
                           <div className="relative pt-4">
-                            {/* Labels */}
                             <div className="absolute -top-1 left-0 text-[8px] font-mono text-gray-600">0%</div>
                             <div className="absolute -top-1 right-0 text-[8px] font-mono text-gray-600">100%</div>
                             
-                            {/* Barre */}
                             <div className="h-3 bg-gray-900 rounded-sm border border-gray-700 relative overflow-hidden">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={inView ? { width: `${skill.level}%` } : {}}
                                 transition={{ duration: 1, delay: categoryIndex * 0.3 + skillIndex * 0.1 + 0.5 }}
                                 className="h-full relative"
-                                style={{
-                                  background: `linear-linear(90deg, ${skill.color}, white)`,
-                                }}
+                                style={{ background: `linear-gradient(90deg, ${skill.color}, white)` }}
                               >
-                                {/* Effet de scintillement */}
                                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent animate-pulse" />
                               </motion.div>
                             </div>
 
-                            {/* Marqueurs */}
                             <div className="flex justify-between mt-1">
                               {[0, 25, 50, 75, 100].map((mark) => (
                                 <div key={mark} className="relative">
                                   <div className={`w-px h-1 ${mark <= skill.level ? 'bg-cyan-400' : 'bg-gray-700'}`} />
-                                  <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[6px] font-mono text-gray-600">
-                                    {mark}
-                                  </span>
+                                  <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[6px] font-mono text-gray-600">{mark}</span>
                                 </div>
                               ))}
                             </div>
                           </div>
 
-                          {/* Indicateur de puissance */}
                           <div className="mt-4 flex justify-end">
                             <div className="flex gap-0.5">
                               {[...Array(5)].map((_, i) => (
-                                <div
-                                  key={i}
-                                  className={`w-1 h-3 ${i < skill.level / 20 ? 'bg-cyan-400' : 'bg-gray-700'}`}
-                                />
+                                <div key={i} className={`w-1 h-3 ${i < skill.level / 20 ? 'bg-cyan-400' : 'bg-gray-700'}`} />
                               ))}
                             </div>
                           </div>
                         </div>
 
-                        {/* Hologramme effect */}
-                        <div 
-                          className="absolute -inset-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                          style={{
-                            background: `radial-linear(circle at 50% 50%, ${skill.color}20, transparent 70%)`,
-                          }}
-                        />
+                        <div className="absolute -inset-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                          style={{ background: `radial-gradient(circle at 50% 50%, ${skill.color}20, transparent 70%)` }} />
                       </div>
                     </motion.div>
                   ))}
@@ -406,16 +367,13 @@ export default function SkillsCyberpunk() {
           transition={{ duration: 0.8, delay: 1.5 }}
           className="relative mt-16"
         >
-          {/* Séparateur */}
           <div className="relative mb-16">
             <div className="absolute left-1/2 -translate-x-1/2 w-px h-16 bg-linear-to-b from-transparent via-cyan-500 to-transparent" />
             <div className="absolute left-1/2 -translate-x-1/2 top-16 w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
           </div>
 
-          {/* Stats avec style terminal */}
           <div className="max-w-4xl mx-auto">
             <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800 font-mono">
-              {/* En-tête de terminal */}
               <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-800">
                 <div className="w-3 h-3 bg-red-500 rounded-full" />
                 <div className="w-3 h-3 bg-yellow-500 rounded-full" />
@@ -423,7 +381,6 @@ export default function SkillsCyberpunk() {
                 <span className="text-xs text-gray-500 ml-2">system@cyberpunk:~$</span>
               </div>
 
-              {/* Lignes de stats */}
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <span className="text-cyan-400 w-32">TOTAL_SKILLS:</span>
@@ -449,7 +406,6 @@ export default function SkillsCyberpunk() {
                 </div>
               </div>
 
-              {/* Ligne de commande */}
               <div className="mt-6 pt-4 border-t border-gray-800 flex items-center gap-2">
                 <span className="text-green-400">$</span>
                 <span className="text-cyan-400">./scan_skills</span>
@@ -458,7 +414,6 @@ export default function SkillsCyberpunk() {
             </div>
           </div>
 
-          {/* Copyright cyberpunk */}
           <div className="text-center mt-16 text-gray-700 font-mono text-xs">
             <span className="text-cyan-400/50">[</span> SYSTEM_STATUS: ONLINE <span className="text-pink-400/50">]</span>
             <br />
