@@ -112,7 +112,7 @@ export default function Carousel() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-4 font-mono"
+          className="text-2xl sm:text-5xl font-bold text-center mb-4 font-mono"
         >
           <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
             &gt; MES PROJETS_

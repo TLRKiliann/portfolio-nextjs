@@ -190,7 +190,7 @@ export default function SkillsCyberpunk() {
         {/* Le reste du contenu inchangé... */}
         <div className="text-center mb-32 relative">
           <div className="relative inline-block">
-            <h1 className="font-black xl:text-7xl md:text-5xl xs:text-2xl mb-4 relative">
+            <h1 className="font-black text-2xl sm:text-5xl font-mono mb-4 relative">
               <span className="relative z-10 bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 TECH_STACK
               </span>

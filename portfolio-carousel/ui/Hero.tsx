@@ -127,8 +127,8 @@ export default function HeroCyberpunk() {
 
   if (!mounted) {
     return (
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
-        <div className="text-cyan-400 font-mono text-xl animate-pulse">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+        <div className="text-cyan-400 font-mono text-lg sm:text-xl animate-pulse text-center px-4">
           &gt; INITIALIZING CYBERPUNK SYSTEM...
         </div>
       </section>
