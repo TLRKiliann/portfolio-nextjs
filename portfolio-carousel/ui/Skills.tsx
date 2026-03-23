@@ -191,15 +191,11 @@ export default function SkillsCyberpunk() {
         <div className="text-center mb-32 relative">
           <div className="relative inline-block">
             <h1 className="font-black text-2xl sm:text-5xl font-mono mb-4 relative">
-              <span className="relative z-10 bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+
+              <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
                 TECH_STACK
               </span>
-              <span className="absolute top-0 left-0 -translate-x-1 -translate-y-1 text-cyan-500/30 blur-sm z-0">
-                TECH_STACK
-              </span>
-              <span className="absolute top-0 left-0 translate-x-1 translate-y-1 text-pink-500/30 blur-sm z-0">
-                TECH_STACK
-              </span>
+
             </h1>
             <div className="flex justify-center gap-2 font-mono text-sm">
               <span className="text-cyan-400">{'{'}</span>
@@ -246,7 +242,7 @@ export default function SkillsCyberpunk() {
                       transition={{ duration: 0.2 }}
                       className="relative px-8"
                     >
-                      <h2 className="font-black font-mono relative" style={{ fontSize: 'clamp(1.5rem, 1vw, 4rem)' }}>
+                      <h2 className="font-black font-mono relative" style={{ fontSize: 'clamp(1.0rem, 1vw, 1.2rem)' }}>
                         <span className="relative z-10 text-white">
                           {isGlitching ? config.glitch : config.name}
                         </span>
