@@ -1,6 +1,23 @@
+"use client";
+
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Legend() {
+
+  const [binaryNumbers, setBinaryNumbers] = useState([]);
+
+  useEffect(() => {
+    const numbers = Array(15).fill(null).map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 10,
+      duration: Math.random() * 15 + 10,
+      text: Math.random() > 0.5 ? '101010' : '010101'
+    }));
+    setBinaryNumbers(numbers);
+  }, []); // Ne s'exécute qu'une fois au montage
+
   return (
     <section className="relative py-16 sm:py-34 bg-black overflow-hidden">
       {/* Grille cyberpunk animée avec effet de profondeur */}
@@ -8,18 +25,18 @@ export default function Legend() {
 
       {/* Particules numériques flottantes - moins sur mobile */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {binaryNumbers.map((item, i) => (
           <div
             key={i}
             className="absolute text-cyan-500/10 font-mono text-[8px] sm:text-[10px] whitespace-nowrap animate-float"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${Math.random() * 15 + 10}s`
+              left: `${item.left}%`,
+              top: `${item.top}%`,
+              animationDelay: `${item.delay}s`,
+              animationDuration: `${item.duration}s`
             }}
           >
-            {Math.random() > 0.5 ? '101010' : '010101'}
+            {item.text}
           </div>
         ))}
       </div>
@@ -94,8 +111,124 @@ export default function Legend() {
           />
         </div>
 
+
+
         {/* Cartes de projets - colonne sur mobile, ligne sur desktop */}
-        <div className="w-full flex flex-col lg:flex-row items-center justify-between m-auto gap-6 sm:gap-8 px-4 sm:px-0">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-around m-auto gap-6 sm:gap-8 px-4 sm:px-0">
+          {/* Carte API - plein largeur sur mobile */}
+          <div className="w-full lg:w-[48%] group relative">
+            <div className="absolute -inset-0.5 bg-linear-to-r from-cyan-500 to-cyan-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
+            <div className="relative p-4 sm:p-6 rounded-xl bg-black/80 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-cyan-400 to-transparent group-hover:via-cyan-300 transition-all" />
+              
+              {/* Badge tech */}
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400 rounded-full animate-pulse" />
+                  <h4 className="text-lg sm:text-xl font-bold font-mono text-cyan-400">
+                    {`[ Frontend ]`}
+                  </h4>
+                </div>
+                <div className="text-[8px] sm:text-[10px] font-mono text-cyan-400/50 border border-cyan-400/30 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
+                  Frontend
+                </div>
+              </div>
+              
+              <p className="text-[10px] sm:text-xs font-mono text-cyan-400/70 mb-3 sm:mb-4 tracking-wider">
+                {`>_ Framework : React + Vite.js + Next.js`}
+              </p>
+              
+              <ul className="list-none text-justify space-y-2 sm:space-y-3">
+                {[
+                  "MAJ des dates tous les vendredi de la 8ème semaine de cours, pour les 8 semaines suivantes.",
+                  "Remplacer les dates par '--/--/----' lors des vacances.",
+                  "Reboot des dates le vendredi de la première semaine de chaque nouvelle année, pour les 8 prochaines semaines de cours."
+                ].map((item, idx) => (
+                  <li key={idx} className="text-gray-400 font-mono text-xs sm:text-sm flex items-start gap-2 group/item">
+                    <span className="text-cyan-400 mt-1 opacity-0 group-hover/item:opacity-100 transition">▹</span>
+                    <span className="text-gray-300 group-hover/item:text-cyan-300 transition text-[11px] sm:text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Footer carte */}
+              <div className="mt-4 sm:mt-6 pt-3 border-t border-cyan-500/30 flex justify-between items-center">
+                <span className="text-[6px] sm:text-[8px] font-mono text-cyan-400/50">STATUS: ACTIVE</span>
+                <span className="text-[6px] sm:text-[8px] font-mono text-cyan-400/30 animate-pulse">⤷ PROCESSING</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Carte SPA - plein largeur sur mobile */}
+          <div className="w-full lg:w-[48%] group relative">
+            <div className="absolute -inset-0.5 bg-linear-to-r from-fuchsia-500 to-fuchsia-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
+            <div className="relative p-4 sm:p-6 rounded-xl bg-black/80 backdrop-blur-sm border border-fuchsia-500/30 hover:border-fuchsia-500 transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-linear-to-r from-transparent via-fuchsia-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-fuchsia-400 to-transparent group-hover:via-fuchsia-300 transition-all" />
+              
+              {/* Badge tech */}
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-fuchsia-400 rounded-full animate-pulse" />
+                  <h4 className="text-lg sm:text-xl font-bold font-mono text-fuchsia-400">
+                    {`[ Backend ]`}
+                  </h4>
+                </div>
+                <div className="text-[8px] sm:text-[10px] font-mono text-fuchsia-400/50 border border-fuchsia-400/30 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
+                  Backend
+                </div>
+              </div>
+              
+              <p className="text-[10px] sm:text-xs font-mono text-fuchsia-400/70 mb-3 sm:mb-4 tracking-wider">
+                {`>_ STACK : MariaDB, MySQL, PostgreSQL, MongoDB, Lamp`}
+              </p>
+              
+              <ul className="list-none text-justify space-y-2 sm:space-y-3">
+                {[
+                  "Mon premier site web a été fait sur Raspberry (Lamp) avec port forwarding et protocole HTTPS pour le rendre accessible en WAN et sécurisé (CSRF, XSS, firewall, MAJ, etc).",
+                  "Ma première application faite en python3 utilisait le protocole SCP pour protéger la connexion SSH à mon server en LAN.",
+                  "La réalisation de mes projets, se fait la plupart du temps sur mon Raspberry qui me sert de serveur LAN.",
+                  "J'utilise aussi MongoDB (no code) et Vercel avec PostgreSQL.",
+                ].map((item, idx) => (
+                  <li key={idx} className="text-gray-400 font-mono text-xs sm:text-sm flex items-start gap-2 group/item">
+                    <span className="text-fuchsia-400 mt-1 opacity-0 group-hover/item:opacity-100 transition">▹</span>
+                    <span className="text-gray-300 group-hover/item:text-fuchsia-300 transition text-[11px] sm:text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Footer carte */}
+              <div className="mt-4 sm:mt-6 pt-3 border-t border-fuchsia-500/30 flex justify-between items-center">
+                <span className="text-[6px] sm:text-[8px] font-mono text-fuchsia-400/50">STATUS: ACTIVE</span>
+                <span className="text-[6px] sm:text-[8px] font-mono text-fuchsia-400/30 animate-pulse">⤷ READY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        {/* 2 Sous-titre avec effet scan */}
+        <div className="relative my-12 sm:my-20 py-4">
+          <div className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/10 to-transparent animate-scan" />
+          <h3 className="text-base sm:text-2xl font-bold text-center font-mono relative px-4">
+            <span className="text-cyan-400 animate-pulse inline-block mr-1 sm:mr-2">&gt;</span>
+            <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
+              MES DERNIERS PROJETS RÉALISÉS POUR L&apos;ÉVEIL
+            </span>
+            <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2 mb-4">_</span>
+          </h3>
+          <motion.div
+            animate={{ x: ['-100%', '100%'] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent"
+          />
+        </div>
+
+        {/* 2 Cartes de projets - colonne sur mobile, ligne sur desktop */}
+        <div className="w-full flex flex-col lg:flex-row items-center justify-around m-auto gap-6 sm:gap-8 px-4 sm:px-0">
           {/* Carte API - plein largeur sur mobile */}
           <div className="w-full lg:w-[48%] group relative">
             <div className="absolute -inset-0.5 bg-linear-to-r from-cyan-500 to-cyan-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
@@ -187,6 +320,14 @@ export default function Legend() {
             </div>
           </div>
         </div>
+
+
+
+
+
+
+
+
 
         {/* Ligne de fin cyberpunk */}
         <div className="mt-16 sm:mt-32 text-center">
