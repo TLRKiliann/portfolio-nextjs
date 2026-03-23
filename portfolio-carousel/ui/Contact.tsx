@@ -132,7 +132,7 @@ export default function Contact() {
       transition={{ delay: 0.7, duration: 0.6 }}
       className="text-sm text-cyan-500/50 mt-12 pt-8 border-t border-cyan-500/20 font-mono"
     >
-      © {new Date().getFullYear()} &nbsp; Cédric Kuchen &gt; TOUS DROITS RÉSERVÉS_
+      © {new Date().getFullYear()}&nbsp;Cédric Kuchen &gt; TOUS DROITS RÉSERVÉS_
     </motion.p>
   </div>
 </section>
