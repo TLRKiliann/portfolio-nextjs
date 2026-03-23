@@ -3,12 +3,6 @@ export default function Legend() {
     <section className="relative py-16 sm:py-34 bg-black overflow-hidden">
       {/* Grille cyberpunk animée avec effet de profondeur */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.03)_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,black,transparent)]" />
-      
-      {/* Lignes de balayage néon */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#00ffff] animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#00ffff] animate-pulse" />
-      </div>
 
       {/* Particules numériques flottantes - moins sur mobile */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -29,13 +23,11 @@ export default function Legend() {
       </div>
 
       <div className="relative z-10 px-4 sm:px-0">
+
         {/* Titre principal avec effet glitch */}
         <div className="relative text-center mb-20 sm:mb-40">
           <h2 className="text-2xl sm:text-5xl font-bold font-mono relative inline-block">
-            <span className="absolute inset-0 text-2xl sm:text-5xl font-bold text-cyan-500 blur-sm animate-pulse">
-              &gt; TOUT EST UNE QUESTION DE LOGIQUE...
-            </span>
-            <span className="relative bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
               &gt; TOUT EST UNE QUESTION DE LOGIQUE...
             </span>
           </h2>
