@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 export default function Legend() {
   return (
     <section className="relative py-16 sm:py-34 bg-black overflow-hidden">
@@ -26,12 +28,22 @@ export default function Legend() {
 
         {/* Titre principal avec effet glitch */}
         <div className="relative text-center mb-20 sm:mb-40">
-          <h2 className="text-2xl sm:text-5xl font-bold font-mono relative inline-block">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-2xl sm:text-5xl font-bold mx-auto mb-4 font-mono"
+          >
             <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
-              &gt; TOUT EST UNE QUESTION DE LOGIQUE...
+              &gt; TOUT EST UNE QUESTION DE LOGIQUE
             </span>
-          </h2>
-          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent" />
+            <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2">_</span>
+          </motion.h2>
+          <motion.div
+            animate={{ x: ['-100%', '100%'] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="absolute mt-4 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent"
+          />
         </div>
 
         {/* Citation principale avec effet terminal - plein largeur sur mobile */}
@@ -73,9 +85,13 @@ export default function Legend() {
             <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
               MES DERNIERS PROJETS RÉALISÉS POUR L&apos;ÉVEIL
             </span>
-            <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2">_</span>
+            <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2 mb-4">_</span>
           </h3>
-          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-48 sm:w-64 h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent" />
+          <motion.div
+            animate={{ x: ['-100%', '100%'] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent"
+          />
         </div>
 
         {/* Cartes de projets - colonne sur mobile, ligne sur desktop */}

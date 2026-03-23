@@ -107,22 +107,23 @@ export default function Carousel() {
         <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#00ffff] animate-pulse" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.h2 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+      <div className="container text-center mx-auto px-4 relative z-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-2xl sm:text-5xl font-bold text-center mb-4 font-mono"
+          className="text-2xl sm:text-5xl font-bold mx-auto my-8 font-mono"
         >
           <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
             &gt; MES PROJETS_
           </span>
         </motion.h2>
+
         <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-xl text-center text-cyan-400 mb-12 font-mono tracking-wider"
+          className="text-xs sm:text-sm md:text-xl mb-12 max-w-2xl mx-auto text-cyan-400 font-mono tracking-wide"
         >
           [ INITIALISATION DES RÉALISATIONS ]
         </motion.p>

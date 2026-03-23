@@ -31,7 +31,7 @@ export default function Contact() {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ delay: 0.3, duration: 0.6 }}
-      className="text-xl mb-12 max-w-2xl mx-auto text-cyan-400 font-mono tracking-wide"
+      className="text-xs sm:text-sm md:text-xl mb-12 max-w-2xl mx-auto text-cyan-400 font-mono tracking-wide"
     >
       [ SYSTEM.MSG ] &gt; Prêt à transformer vos idées en réalité. Contactez-moi.
     </motion.p>

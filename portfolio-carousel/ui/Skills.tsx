@@ -190,14 +190,20 @@ export default function SkillsCyberpunk() {
         {/* Le reste du contenu inchangé... */}
         <div className="text-center mb-32 relative">
           <div className="relative inline-block">
-            <h1 className="font-black text-2xl sm:text-5xl font-mono mb-4 relative">
 
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-2xl sm:text-5xl font-bold mx-auto my-8 font-mono"
+            >
               <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
-                TECH_STACK
+                &gt; TECH_STACK_
               </span>
+            </motion.h2>
 
-            </h1>
-            <div className="flex justify-center gap-2 font-mono text-sm">
+            <div className="text-xs sm:text-sm md:text-xl mb-12 max-w-2xl mx-auto gap-2 font-mono tracking-wide">
+
               <span className="text-cyan-400">{'{'}</span>
               <span className="text-purple-400">SYSTEM_READY</span>
               <span className="text-pink-400">{'}'}</span>
