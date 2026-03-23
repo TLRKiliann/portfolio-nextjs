@@ -47,12 +47,12 @@ export default function Contact() {
 
     {/* Section Photo avec effet cyberpunk */}
     <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    transition={{ delay: 0.4, duration: 0.5 }}
-    className="mb-12 relative"
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.4, duration: 0.5 }}
+      className="mb-12 relative"
     >
-    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.5)] relative">
+    <div className="top-[5px] w-32 h-32 mx-auto my-auto rounded-full overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.5)] relative">
         <Image
             src="/images/photo_me.png"
             width={500}
