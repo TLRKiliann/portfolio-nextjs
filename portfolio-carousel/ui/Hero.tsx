@@ -37,8 +37,8 @@ export default function HeroCyberpunk() {
   }, [mounted]);
 
   // Calcul des transformations
-  const y = `${scrollProgress * 30}%`;
-  const opacityValue = 1 - scrollProgress * 2;
+  const y: string = `${scrollProgress * 30}%`;
+  const opacityValue: number = 1 - scrollProgress * 2;
 
   // Initialisation des données côté client
   useEffect(() => {

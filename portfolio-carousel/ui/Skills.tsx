@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
   SiReact, 
   SiTypescript, 
@@ -76,6 +77,9 @@ const categoryConfig = {
 };
 
 export default function SkillsCyberpunk() {
+
+  const { chooseLang } = useLanguage();
+
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -133,7 +137,7 @@ export default function SkillsCyberpunk() {
     return (
       <section className="relative min-h-screen bg-black overflow-hidden py-32 flex items-center justify-center">
         <div className="text-cyan-400 font-mono text-xl animate-pulse">
-          &gt; LOADING TECH_STACK...
+          &gt; {chooseLang === "FR" ? `CHARGEMENT DE LA PILE TECHNO...` : `LOADING TECH_STACK...`}
         </div>
       </section>
     );
@@ -198,7 +202,7 @@ export default function SkillsCyberpunk() {
               className="text-2xl sm:text-5xl font-bold mx-auto my-8 font-mono"
             >
               <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
-                &gt; TECH_STACK_
+                &gt; {chooseLang === "FR" ? `PILE TECHNO` : `TECH_STACK_`}
               </span>
             </motion.h2>
 
@@ -419,7 +423,7 @@ export default function SkillsCyberpunk() {
           <div className="text-center mt-16 text-gray-700 font-mono text-xs">
             <span className="text-cyan-400/50">[</span> SYSTEM_STATUS: ONLINE <span className="text-pink-400/50">]</span>
             <br />
-            <span className="text-gray-800">© 2024 // NEO_TOKYO // v2.0.24</span>
+            <span className="text-gray-800">© 2026 // NEO_TOKYO // v2.0.24</span>
           </div>
         </motion.div>
       </div>

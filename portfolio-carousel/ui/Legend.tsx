@@ -1,19 +1,15 @@
 "use client";
 
+import { BinaryNumbersType } from "@/lib/type";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-
-type BinaryType = {
-  left: number;
-  top: number;
-  delay: number;
-  duration: number;
-  text: string;
-}
+import { useLanguage } from "@/context/LanguageContext";
+import { textAPI_EN, textAPI_FR, textBackendEN, textBackendFR, textsEN_Xp, textsFR_Xp, textSPA_EN, textSPA_FR } from "@/lib/TextForLegend";
 
 export default function Legend() {
 
-  const [binaryNumbers, setBinaryNumbers] = useState<BinaryType[]>([]);
+  const { chooseLang } = useLanguage();
+  const [binaryNumbers, setBinaryNumbers] = useState<BinaryNumbersType[]>([]);
 
   useEffect(() => {
     const numbers = Array(15).fill(null).map(() => ({
@@ -24,7 +20,7 @@ export default function Legend() {
       text: Math.random() > 0.5 ? '101010' : '010101'
     }));
     setBinaryNumbers(numbers);
-  }, []); // Ne s'exécute qu'une fois au montage
+  }, []);
 
   return (
     <section className="relative py-16 sm:py-34 bg-black overflow-hidden">
@@ -33,7 +29,7 @@ export default function Legend() {
 
       {/* Particules numériques flottantes - moins sur mobile */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {binaryNumbers.map((item, i) => (
+        {binaryNumbers.map((item: BinaryNumbersType, i: number) => (
           <div
             key={i}
             className="absolute text-cyan-500/10 font-mono text-[8px] sm:text-[10px] whitespace-nowrap animate-float"
@@ -60,7 +56,7 @@ export default function Legend() {
             className="text-2xl sm:text-5xl font-bold mx-auto mb-4 font-mono"
           >
             <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
-              &gt; TOUT EST UNE QUESTION DE LOGIQUE
+              &gt; {chooseLang === "FR" ? `TOUT EST UNE QUESTION DE LOGIQUE` : `IT'S ALL A MATTER OF LOGIC`} 
             </span>
             <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2">_</span>
           </motion.h2>
@@ -88,9 +84,11 @@ export default function Legend() {
             
             <p className="text-justify text-gray-300 font-mono text-xs sm:text-sm leading-relaxed">
               <span className="text-cyan-400">[ SYSTEM.MSG ]</span>
-              <span className="text-fuchsia-400"> &gt;</span> En tant que développeur web, il est essentiel de maîtriser les enjeux de sécurité, 
+              <span className="text-fuchsia-400"> &gt;</span> {chooseLang === "FR" ? `En tant que développeur web, il est essentiel de maîtriser les enjeux de sécurité, 
               de performance, de maintenabilité et d&apos;expérience utilisateur, en adoptant des bonnes pratiques rigoureuses à chaque niveau : 
-              code, données, infrastructure et interactions.
+              code, données, infrastructure et interactions.` : `As a web developer, it is essential to master the challenges of security, 
+              performance, maintainability, and user experience by adopting rigorous best practices at every level: 
+              code, data, infrastructure, and interactions.`}
             </p>
             
             {/* Ligne de commande fictive */}
@@ -109,7 +107,7 @@ export default function Legend() {
           <h3 className="text-base sm:text-2xl font-bold text-center font-mono relative px-4">
             <span className="text-cyan-400 animate-pulse inline-block mr-1 sm:mr-2">&gt;</span>
             <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
-              MES EXPÉRIENCES
+              {chooseLang === "FR" ? `MES EXPÉRIENCES` : `MY EXPERIENCES`}
             </span>
             <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2 mb-4">_</span>
           </h3>
@@ -148,16 +146,10 @@ export default function Legend() {
               </p>
               
               <ul className="list-none text-justify space-y-2 sm:space-y-3">
-                {[
-                  `Mon premier défi a été de faire un site web hébergé chez moi, tout en étant accessible depuis l'extérieur. J'ai utilisé un raspberry pour monter ma stack LAMP et j'ai installé un certificat HTTPS, ainsi qu'un DDNS. Le tout sécurisé avec HTTPS et une configuration serveur contre les vulnérabiltés.`,
-                  `La WebApp 'Time-Track' figurant ci-dessus est une application de soins infirmiers que j'ai amélioré et que j'ai faite selon ma propre vision et d'après mon expérience dans le milieu.`,
-                  "Le projet 'Statistiques' a été réalisé chez It4net, à Lausanne. Je l'ai fait en 17 jours en natif (PHP + MySQL + JS + CSS).",
-                  "J'ai fait 'Mon ECO Pote Game' qui est un jeu de société sur l'environnement, en tant que Bénévole.",
-                  "NextJs server-action avec next-action Auth et middleware.",
-                  "J'ai effectué 2 applications pour l'Eveil, dont les descriptifs figurent ci-dessous."
-                ].map((item, idx) => (
+              
+                {(chooseLang === "FR" ? textsFR_Xp : textsEN_Xp).map((item: string, idx: number) => (
                   <li key={idx} className="text-gray-400 font-mono text-xs sm:text-sm flex items-start gap-2 group/item">
-                    <span className="text-cyan-400 mt-1 opacity-0 group-hover/item:opacity-100 transition">▹</span>
+                    <span className="text-cyan-400 my-auto opacity-0 group-hover/item:opacity-100 transition">▹</span>
                     <span className="text-gray-300 group-hover/item:text-cyan-300 transition text-[11px] sm:text-sm">{item}</span>
                   </li>
                 ))}
@@ -194,14 +186,10 @@ export default function Legend() {
               </p>
               
               <ul className="list-none text-justify space-y-2 sm:space-y-3">
-                {[
-                  "Mon premier site web a été fait sur Raspberry (Lamp) avec port forwarding et protocole HTTPS pour le rendre accessible en WAN et sécurisé (CSRF, XSS, firewall, MAJ, etc).",
-                  "Ma première application faite en python3 utilisait le protocole SCP pour protéger la connexion SSH à mon server en LAN.",
-                  "La réalisation de mes projets, se fait la plupart du temps sur mon Raspberry qui me sert de serveur LAN.",
-                  "J'utilise aussi MongoDB (no code) et Vercel avec PostgreSQL.",
-                ].map((item, idx) => (
+
+                {(chooseLang === "FR" ? textBackendFR : textBackendEN).map((item: string, idx: number) => (
                   <li key={idx} className="text-gray-400 font-mono text-xs sm:text-sm flex items-start gap-2 group/item">
-                    <span className="text-fuchsia-400 mt-1 opacity-0 group-hover/item:opacity-100 transition">▹</span>
+                    <span className="text-fuchsia-400 my-auto opacity-0 group-hover/item:opacity-100 transition">▹</span>
                     <span className="text-gray-300 group-hover/item:text-fuchsia-300 transition text-[11px] sm:text-sm">{item}</span>
                   </li>
                 ))}
@@ -223,7 +211,7 @@ export default function Legend() {
           <h3 className="text-base sm:text-2xl font-bold text-center font-mono relative px-4">
             <span className="text-cyan-400 animate-pulse inline-block mr-1 sm:mr-2">&gt;</span>
             <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
-              MES DERNIERS PROJETS RÉALISÉS POUR L&apos;ÉVEIL
+              {chooseLang === "FR" ? `MES DERNIERS PROJETS RÉALISÉS POUR L'ÉVEIL` : `MY LATEST PROJECTS FOR L'ÉVEIL`}
             </span>
             <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2 mb-4">_</span>
           </h3>
@@ -261,13 +249,10 @@ export default function Legend() {
               </p>
               
               <ul className="list-none text-justify space-y-2 sm:space-y-3">
-                {[
-                  "MAJ des dates tous les vendredi de la 8ème semaine de cours, pour les 8 semaines suivantes.",
-                  "Remplacer les dates par '--/--/----' lors des vacances.",
-                  "Reboot des dates le vendredi de la première semaine de chaque nouvelle année, pour les 8 prochaines semaines de cours."
-                ].map((item, idx) => (
+
+                {(chooseLang === "FR" ? textAPI_FR : textAPI_EN).map((item: string, idx: number) => (
                   <li key={idx} className="text-gray-400 font-mono text-xs sm:text-sm flex items-start gap-2 group/item">
-                    <span className="text-cyan-400 mt-1 opacity-0 group-hover/item:opacity-100 transition">▹</span>
+                    <span className="text-cyan-400 my-auto opacity-0 group-hover/item:opacity-100 transition">▹</span>
                     <span className="text-gray-300 group-hover/item:text-cyan-300 transition text-[11px] sm:text-sm">{item}</span>
                   </li>
                 ))}
@@ -306,14 +291,10 @@ export default function Legend() {
               </p>
               
               <ul className="list-none text-justify space-y-2 sm:space-y-3">
-                {[
-                  "Afficher les tâches en fonction de leur priorité, du jour de la semaine, de la date et de l'heure.",
-                  "Afficher les tâches sous forme de calendrier en fonction du numéro de la semaine de l'année, avec possibilité de les modifier.",
-                  "Afficher les tâches terminées avec possibilité de les supprimer ou downloader le fichier au format .CSV",
-                  "Si le navigateur est fermé, possibilité de l'ouvrir avec affichage des tâches en l'état, lors de la fermeture."
-                ].map((item, idx) => (
+
+                {(chooseLang === "FR" ? textSPA_FR : textSPA_EN).map((item: string, idx: number) => (
                   <li key={idx} className="text-gray-400 font-mono text-xs sm:text-sm flex items-start gap-2 group/item">
-                    <span className="text-fuchsia-400 mt-1 opacity-0 group-hover/item:opacity-100 transition">▹</span>
+                    <span className="text-fuchsia-400 my-auto opacity-0 group-hover/item:opacity-100 transition">▹</span>
                     <span className="text-gray-300 group-hover/item:text-fuchsia-300 transition text-[11px] sm:text-sm">{item}</span>
                   </li>
                 ))}

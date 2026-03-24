@@ -1,10 +1,11 @@
 'use client';
 
+import { Project } from '@/lib/type';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useLanguage } from "@/context/LanguageContext";
 
 // Import Swiper styles
@@ -12,18 +13,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
-
-interface Project {
-  id: number;
-  title: string;
-  category: string;
-  description_FR: string;
-  description_EN: string;
-  image: string;
-  technologies: string[];
-  link: string;
-  linkGitHub?: string;
-}
 
 const projects: Project[] = [
   {
