@@ -1,15 +1,29 @@
 "use client";
 
+import { ChangeEvent } from "react";
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function Translation() {
 
-    const handleClick = () => {
-        console.log("clicked");
-    }
+    const { chooseLang, setChooseLang } = useLanguage();
+
+    const handleLang = (e: ChangeEvent<HTMLSelectElement>): void => {
+        const value = e.target.value;
+        setChooseLang(value);
+    };
 
     return (
-        <div className='fixed flex flex-row items-center justify-end top-0 left-0 right-0 bg-transparent text-white z-50 pt-4 pr-10'>
-          <button onClick={handleClick}>Fr</button>
-          <button onClick={handleClick}>En</button>
+        <div className='fixed flex flex-row items-center justify-end top-0 left-0 right-0 bg-transparent text-white z-50 pt-2 pr-2'>
+
+            <select
+                value={chooseLang}
+                onChange={handleLang}
+                className="text-4xl px-1 rounded bg-transparent cursor-pointer text-center"
+              >
+                <option value="FR">🇫🇷</option>
+                <option value="EN">🇺🇸</option>
+            </select>
+
         </div>
     )
-}
+};

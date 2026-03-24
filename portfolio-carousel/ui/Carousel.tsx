@@ -5,6 +5,7 @@ import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/module
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { useLanguage } from "@/context/LanguageContext";
 
 // Import Swiper styles
 import 'swiper/css';
@@ -16,7 +17,8 @@ interface Project {
   id: number;
   title: string;
   category: string;
-  description: string;
+  description_FR: string;
+  description_EN: string;
   image: string;
   technologies: string[];
   link: string;
@@ -26,57 +28,65 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Mon Eco Pote",
-    category: "Game",
-    description: "Jeu destiné à la sensibilisation de l'écologie",
-    image: "/images/game.png",
-    technologies: ["Vite.js", "TypeScript", "CSS"],
-    link: "https://mono-game-beta.vercel.app/",
-    linkGitHub: "https://github.com/TLRKiliann/mono-game"
+    title: "Time-Track",
+    category: "WebApp",
+    description_FR: "Application de soins infirmiers améliorée",
+    description_EN: "Improved nursing care",
+    image: "/images/time-track.png",
+    technologies: ["Python", "Tkinter", "MySql"],
+    link: "https://www.youtube.com/watch?v=aV-X16sxRoI&list=PLVqrrQlbJDKOem4RhHMXvVJJbq6BOY0Fl&index=3",
+    linkGitHub: "https://github.com/TLRKiliann/timetrack"
   },
   {
     id: 2,
-    title: "Dashboard",
-    category: "e-commerce",
-    description: "Prend l'ip des client avec géolocalisation",
-    image: "/images/dashboard.png",
-    technologies: ["Next.js", "TypeScript", "PostgreSql", "Tailwind"],
-    link: "https://www.youtube.com/watch?v=fMMOh8GGPV0",
-    linkGitHub: "https://github.com/TLRKiliann/Nextjs-Dashboard"
-  },
-  {
-    id: 3,
-    title: "Skate-shop",
-    category: "e-commerce",
-    description: "Site de skate avec beaucoup de tricks !",
-    image: "/images/skate.png",
-    technologies: ["Next.js", "TypeScript", "PostgreSql", "Tailwind"],
-    link: "https://www.youtube.com/watch?v=cUJHlCAO1qo",
-    linkGitHub: "https://github.com/TLRKiliann/nextjs14-vishwas"
-  },
-  {
-    id: 4,
     title: "Statistiques",
     category: "WebApp",
-    description: "Stats des interventions par mois, par année et par intervenant",
+    description_FR: "Stats des interventions par mois, par année et par intervenant",
+    description_EN: "Service call statistics by month, year, and technician",
     image: "/images/stats.png",
     technologies: ["PHP", "JavaScript", "MySql", "CSS"],
     link: "https://www.youtube.com/watch?v=C30dF36LaZs",
     linkGitHub: "https://github.com/TLRKiliann/statistiques"
   },
   {
+    id: 3,
+    title: "Mon Eco Pote",
+    category: "Game",
+    description_FR: "Jeu destiné à la sensibilisation de l'environnement et à l'écologie",
+    description_EN: "A game designed to raise awareness about the environment and ecology",
+    image: "/images/game.png",
+    technologies: ["Vite.js", "TypeScript", "CSS"],
+    link: "https://mono-game-beta.vercel.app/",
+    linkGitHub: "https://github.com/TLRKiliann/mono-game"
+  },
+  {
+    id: 4,
+    title: "Dashboard",
+    category: "e-commerce",
+    description_FR: "Prend l'ip des client avec géolocalisation",
+    description_EN: "Collect customers' IP addresses and determine their geographic location",
+    image: "/images/dashboard.png",
+    technologies: ["Next.js", "TypeScript", "PostgreSql", "Tailwind"],
+    link: "https://www.youtube.com/watch?v=fMMOh8GGPV0",
+    linkGitHub: "https://github.com/TLRKiliann/Nextjs-Dashboard"
+  },
+  {
     id: 5,
-    title: "Time-Track",
-    category: "WebApp",
-    description: "Application de soins infirmiers améliorée",
-    image: "/images/time-track.png",
-    technologies: ["Python", "Tkinter", "MySql"],
-    link: "https://www.youtube.com/watch?v=aV-X16sxRoI&list=PLVqrrQlbJDKOem4RhHMXvVJJbq6BOY0Fl&index=3",
-    linkGitHub: "https://github.com/TLRKiliann/timetrack"
+    title: "Skate-shop",
+    category: "e-commerce",
+    description_FR: "Site de skate avec beaucoup de tricks !",
+    description_EN: "A skateboarding site with lots of tricks!",
+    image: "/images/skate.png",
+    technologies: ["Next.js", "TypeScript", "PostgreSql", "Tailwind"],
+    link: "https://www.youtube.com/watch?v=cUJHlCAO1qo",
+    linkGitHub: "https://github.com/TLRKiliann/nextjs14-vishwas"
   }
 ];
 
 export default function Carousel() {
+  
+  const { chooseLang } = useLanguage();
+
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -86,10 +96,10 @@ export default function Carousel() {
 
   if (!mounted) {
     return (
-      <div className="relative py-16 bg-black overflow-hidden">
+      <div className="relative min-h-[100dvh] py-8 sm:py-16 md:py-20 bg-black overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="h-96 flex items-center justify-center">
-            <div className="text-cyan-400 font-mono">Chargement...</div>
+            <div className="text-cyan-400 font-mono">{chooseLang === "FR" ? "Chargement..." : "Loading..."}</div>
           </div>
         </div>
       </div>
@@ -97,7 +107,7 @@ export default function Carousel() {
   }
 
   return (
-    <div className="relative py-16 bg-black overflow-hidden">
+    <div className="relative min-h-[100dvh] py-8 sm:py-16 md:py-20 bg-black overflow-hidden">
       {/* Grille cyberpunk animée */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.03)_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,black,transparent)]" />
       
@@ -115,7 +125,7 @@ export default function Carousel() {
           className="text-2xl sm:text-5xl font-bold mx-auto my-8 font-mono"
         >
           <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
-            &gt; MES PROJETS_
+            &gt; {chooseLang === "FR" ? `MES PROJETS_` : `My PROJECTS_`}
           </span>
         </motion.h2>
 
@@ -125,7 +135,7 @@ export default function Carousel() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-xs sm:text-sm md:text-xl mb-12 max-w-2xl mx-auto text-cyan-400 font-mono tracking-wide"
         >
-          [ INITIALISATION DES RÉALISATIONS ]
+          {chooseLang === "FR" ? `[ INITIALISATION DES RÉALISATIONS ]` : `[ PROJECT INITIALIZATION ]`}
         </motion.p>
 
         <Swiper
@@ -214,7 +224,7 @@ export default function Carousel() {
                 
                 <div className="p-6 bg-black bg-opacity-50 backdrop-blur-sm">
                   <p className="text-gray-300 mb-4 font-mono text-sm">
-                    {project.description}
+                    {chooseLang === "FR" ? project.description_FR : project.description_EN}
                   </p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
