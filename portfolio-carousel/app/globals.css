@@ -1,12 +1,9 @@
-/* app/globals.css */
 @import "tailwindcss";
 
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
 @import 'swiper/css/effect-coverflow';
-
-/* Vos styles personnalisés */
 
 /* Scanlines CRT Effect */
 .bg-scanlines {
@@ -74,11 +71,26 @@
   100% { transform: translate(0px, 0px) scale(1); }
 }
 
+/* Animation de glitch pour les titres */
+@keyframes glitch {
+  0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
+  95% { transform: skew(0deg, 0deg); opacity: 1; }
+  96% { transform: skew(5deg, 0deg); opacity: 0.8; }
+  97% { transform: skew(-5deg, 0deg); opacity: 0.9; }
+  98% { transform: skew(0deg, 5deg); opacity: 0.8; }
+  99% { transform: skew(0deg, -5deg); opacity: 0.9; }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
 .animate-blob {
   animation: blob 7s infinite;
 }
 
-.animation-delay-2000 {
+
+/* .animation-delay-2000 {
   animation-delay: 2s;
 }
 
@@ -88,17 +100,24 @@
 
 .perspective-1000 {
   perspective: 1000px;
-}
+} */
 
 /* Swiper styles */
 .swiper {
   padding: 50px 0 !important;
 }
 
+/* Styles par défaut (mobile/tablette) */
 .swiper-slide {
-  width: 350px;
-  height: auto;
-  transition: all 0.3s ease;
+  /* width: auto !important; */
+  width: 320px !important;
+}
+
+/* Sur desktop avec coverflow */
+@media (min-width: 1024px) {
+  .swiper-slide {
+    width: 420px !important;
+  }
 }
 
 .swiper-slide-active {
@@ -125,15 +144,20 @@
   transition: all 0.3s ease;
 }
 
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-  background: rgba(59, 130, 246, 0.8);
-}
-
 .swiper-button-prev::after,
 .swiper-button-next::after {
   font-size: 20px !important;
 }
+
+/* .swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.5 !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  background: #3b82f6 !important;
+} */
 
 /* Style carousel */
 .cyber-bullet {
@@ -153,7 +177,7 @@
 /* Style pour la navigation Swiper */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #00ffff !important;
+  color: rgba(0, 255, 255, 1) !important;
   background: rgba(0, 0, 0, 0.5);
   padding: 2rem;
   border-radius: 50%;
@@ -165,13 +189,8 @@
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   background: rgba(0, 255, 255, 0.2);
-  border-color: #00ffff;
+  border-color: rgba(0, 255, 255, 0.5);
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-}
-
-/* Correction pour Swiper/Bootstrap Reboot */
-:host:not(button) {
-  background-color: transparent !important;
 }
 
 :host {
@@ -183,20 +202,7 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-/* Animation de glitch pour les titres */
-@keyframes glitch {
-  0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
-  95% { transform: skew(0deg, 0deg); opacity: 1; }
-  96% { transform: skew(5deg, 0deg); opacity: 0.8; }
-  97% { transform: skew(-5deg, 0deg); opacity: 0.9; }
-  98% { transform: skew(0deg, 5deg); opacity: 0.8; }
-  99% { transform: skew(0deg, -5deg); opacity: 0.9; }
-}
-
-.animate-glitch {
-  animation: glitch 0.3s ease-in-out;
-}
-
+/* Legend.tsx */
 @keyframes scan {
   0% {
     transform: translateX(-100%);
