@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { useEffect, useRef, useState } from 'react';
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroCyberpunk() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,6 +16,15 @@ export default function HeroCyberpunk() {
   const [time, setTime] = useState(new Date());
   const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, code: string, duration: number, delay: number}>>([]);
   const [glitchOffset, setGlitchOffset] = useState({ x: 0, y: 0 });
+
+  const { chooseLang } = useLanguage();
+
+  const scrollToNextSection = () => {
+    const carouselSection = document.getElementById('skills-section');
+    if (carouselSection) {
+      carouselSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   // Gestion du scroll manuelle
   useEffect(() => {
@@ -243,13 +253,13 @@ export default function HeroCyberpunk() {
           <span className="text-gray-400">&lt;</span>
           <TypeAnimation
             sequence={[
-              'FRONT-END',
+              'CYBER_FRONT-END',
               2000,
-              'BACK-END',
+              'HACKER_BACK-END',
               2000,
-              'FULL-STACK',
+              'FULL-STACK_DEV',
               2000,
-              'API',
+              'API WELCOME_ !',
               2000,
             ]}
             wrapper="span"
@@ -260,7 +270,8 @@ export default function HeroCyberpunk() {
           <span className="text-gray-400">/&gt;</span>
           
           {/* Effet glitch au hover */}
-          <span className="absolute -inset-1 text-cyan-400 opacity-0 group-hover:opacity-50 blur-sm transition-opacity pointer-events-none">
+          {/* <span className="absolute -inset-1 text-cyan-400 opacity-0 group-hover:opacity-50 blur-sm transition-opacity pointer-events-none"> */}
+              <span className="absolute -inset-1 text-cyan-400/30 text-[80px] left-0 whitespace-nowrap opacity-0 group-hover:opacity-50 blur-xs transition-opacity pointer-events-none">
             {`<CYBER_DEVELOPER/>`}
           </span>
         </motion.div>
@@ -273,7 +284,7 @@ export default function HeroCyberpunk() {
           className="flex justify-center gap-8 mb-12 font-mono"
         >
           {[
-            { label: 'PROJECTS', value: '50+', colorClass: 'text-cyan-400', labelClass: 'text-cyan-400/60' },
+            { label: 'PROJECTS', value: '140+', colorClass: 'text-cyan-400', labelClass: 'text-cyan-400/60' },
             { label: 'EXPERIENCE', value: '5+', colorClass: 'text-purple-400', labelClass: 'text-purple-400/60' },
             { label: 'COMMITS', value: '2.5k', colorClass: 'text-pink-400', labelClass: 'text-pink-400/60' },
           ].map((stat, i) => (
@@ -296,12 +307,13 @@ export default function HeroCyberpunk() {
           className="flex gap-6 justify-center flex-wrap"
         >
           <motion.button
+            onClick={scrollToNextSection}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="group relative px-8 py-4 bg-transparent border-2 border-cyan-500 rounded-sm overflow-hidden"
           >
             <span className="relative z-10 text-cyan-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
-              &gt; INITIALIZE_PROTOCOL
+              &gt; {chooseLang === "FR" ? "INITIALISER_PROTOCOLE" : "INITIALIZE_PROTOCOL"}
             </span>
             <motion.div
               className="absolute inset-0 bg-cyan-500"
@@ -311,21 +323,24 @@ export default function HeroCyberpunk() {
             />
           </motion.button>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative px-8 py-4 bg-transparent border-2 border-purple-500 rounded-sm overflow-hidden"
-          >
-            <span className="relative z-10 text-purple-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
-              &gt; ESTABLISH_CONNECTION
-            </span>
-            <motion.div
-              className="absolute inset-0 bg-purple-500"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: 0 }}
-              transition={{ type: "tween" }}
-            />
-          </motion.button>
+          <a href={`mailto:cedric.kuchen@protonmail.com`}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group px-8 py-4 relative bg-transparent border-2 border-purple-500 rounded-sm overflow-hidden"
+            >
+              <span className="relative z-10 text-purple-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
+                &gt; {chooseLang === "FR" ? "ÉTABLIR_LA_CONNEXION" : "ESTABLISH_CONNECTION"}
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-purple-500"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: 0 }}
+                transition={{ type: "tween" }}
+              />
+            </motion.button>
+          </a>
+
         </motion.div>
 
         {/* Terminal info */}

@@ -5,7 +5,8 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { 
-  SiReact, 
+  SiReact,
+  SiVite,
   SiTypescript, 
   SiNodedotjs, 
   SiFigma,
@@ -23,26 +24,27 @@ import {
 
 const skills = [
   // FRONTEND
-  { name: 'React', icon: SiReact, level: 90, color: '#61DAFB', category: 'frontend' },
-  { name: 'Next.js', icon: SiNextdotjs, level: 88, color: '#FFFFFF', category: 'frontend' },
+  { name: 'React', icon: SiReact, level: 75, color: '#61DAFB', category: 'frontend' },
+  { name: 'Vite.js', icon: SiVite, level: 85, color: 'orchid', category: 'frontend' },
+  { name: 'Next.js', icon: SiNextdotjs, level: 85, color: '#ffffff', category: 'frontend' },
+  { name: 'JavaScript', icon: SiJavascript, level: 70, color: '#F7DF1E', category: 'frontend' },
   { name: 'TypeScript', icon: SiTypescript, level: 85, color: '#3178C6', category: 'frontend' },
-  { name: 'JavaScript', icon: SiJavascript, level: 90, color: '#F7DF1E', category: 'frontend' },
-  { name: 'Tailwind', icon: SiTailwindcss, level: 95, color: '#06B6D4', category: 'frontend' },
-  { name: 'Sass', icon: SiSass, level: 85, color: '#CC6699', category: 'frontend' },
   
   // BACKEND
   { name: 'Node.js', icon: SiNodedotjs, level: 80, color: '#339933', category: 'backend' },
-  { name: 'Python', icon: SiPython, level: 75, color: '#3776AB', category: 'backend' },
+  { name: 'Python', icon: SiPython, level: 85, color: '#3776AB', category: 'backend' },
   { name: 'PHP', icon: SiPhp, level: 70, color: '#777BB4', category: 'backend' },
   
   // DATABASES
-  { name: 'MongoDB', icon: SiMongodb, level: 75, color: '#47A248', category: 'database' },
-  { name: 'MySQL', icon: SiMysql, level: 80, color: '#4479A1', category: 'database' },
-  { name: 'PostgreSQL', icon: SiPostgresql, level: 75, color: '#4169E1', category: 'database' },
-  { name: 'MariaDB', icon: SiMariadb, level: 70, color: '#003545', category: 'database' },
-  
+  { name: 'MariaDB', icon: SiMariadb, level: 85, color: '#003545', category: 'database' },
+  { name: 'MySQL', icon: SiMysql, level: 85, color: '#4479A1', category: 'database' },
+  { name: 'PostgreSQL', icon: SiPostgresql, level: 85, color: '#4169E1', category: 'database' },
+  { name: 'MongoDB', icon: SiMongodb, level: 80, color: '#47A248', category: 'database' },
+
   // DESIGN
-  { name: 'Figma', icon: SiFigma, level: 82, color: '#F24E1E', category: 'design' },
+  { name: 'Sass', icon: SiSass, level: 80, color: '#CC6699', category: 'design' },
+  { name: 'Tailwind', icon: SiTailwindcss, level: 70, color: '#06B6D4', category: 'design' },
+  { name: 'Figma', icon: SiFigma, level: 80, color: '#F24E1E', category: 'design' },
 ];
 
 const categoryConfig = {
@@ -144,7 +146,7 @@ export default function SkillsCyberpunk() {
   }
 
   return (
-    <section ref={ref} className="relative min-h-screen bg-black overflow-hidden py-32">
+    <section ref={ref} id="skills-section" className="relative min-h-screen bg-black overflow-hidden py-32">
       {/* Effet de scanlines */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-20"
         style={{
@@ -315,22 +317,22 @@ export default function SkillsCyberpunk() {
                             </div>
                           </div>
 
-                          <h3 className="text-xl font-bold font-mono mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r transition-all"
-                            style={{ backgroundImage: `linear-gradient(90deg, ${skill.color}, white)` }}>
+                          <h3 className="text-xl pl-2 font-bold font-mono mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r transition-all rounded-sm"
+                            style={{ backgroundImage: `linear-gradient(90deg, ${skill.name === "Next.js" ? "black" : skill.color}, white)` }}>
                             {skill.name}
                           </h3>
 
                           <div className="relative pt-4">
-                            <div className="absolute -top-1 left-0 text-[8px] font-mono text-gray-600">0%</div>
-                            <div className="absolute -top-1 right-0 text-[8px] font-mono text-gray-600">100%</div>
+                            <div className="absolute -top-1 left-0 text-[8px] font-mono text-gray-500">0%</div>
+                            <div className="absolute -top-1 right-0 text-[8px] font-mono text-gray-500">100%</div>
                             
                             <div className="h-3 bg-gray-900 rounded-sm border border-gray-700 relative overflow-hidden">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={inView ? { width: `${skill.level}%` } : {}}
                                 transition={{ duration: 1, delay: categoryIndex * 0.3 + skillIndex * 0.1 + 0.5 }}
-                                className="h-full relative"
-                                style={{ background: `linear-gradient(90deg, ${skill.color}, white)` }}
+                                className="h-full relative rounded-xs"
+                                style={{ background: `linear-gradient(90deg, ${skill.name === "Next.js" ? "black" : skill.color}, white)` }}
                               >
                                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent animate-pulse" />
                               </motion.div>
@@ -340,7 +342,7 @@ export default function SkillsCyberpunk() {
                               {[0, 25, 50, 75, 100].map((mark) => (
                                 <div key={mark} className="relative">
                                   <div className={`w-px h-1 ${mark <= skill.level ? 'bg-cyan-400' : 'bg-gray-700'}`} />
-                                  <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[6px] font-mono text-gray-600">{mark}</span>
+                                  <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[6px] font-mono text-gray-500">{mark}</span>
                                 </div>
                               ))}
                             </div>
@@ -355,7 +357,7 @@ export default function SkillsCyberpunk() {
                           </div>
                         </div>
 
-                        <div className="absolute -inset-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                        <div className="absolute -inset-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border border-red-500"
                           style={{ background: `radial-gradient(circle at 50% 50%, ${skill.color}20, transparent 70%)` }} />
                       </div>
                     </motion.div>
