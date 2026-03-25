@@ -6,18 +6,23 @@ import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroCyberpunk() {
+
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [glitchIntensity, setGlitchIntensity] = useState(0);
-  const [dimensions, setDimensions] = useState({ width: 1000, height: 800 });
-  const [time, setTime] = useState(new Date());
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  const [time, setTime] = useState<Date>(new Date());
+
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [glitchIntensity, setGlitchIntensity] = useState<number>(0);
+  const [glitchOffset, setGlitchOffset] = useState<{x: number, y: number}>({ x: 0, y: 0 });
+
+  const [mousePosition, setMousePosition] = useState<{x: number, y: number}>({ x: 0, y: 0 });
+  const [dimensions, setDimensions] = useState<{width: number, height: number}>({ width: 1000, height: 800 });
+
   const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, code: string, duration: number, delay: number}>>([]);
-  const [glitchOffset, setGlitchOffset] = useState({ x: 0, y: 0 });
 
   const { chooseLang } = useLanguage();
+  const [titleRotation, setTitleRotation] = useState<{x: number, y: number}>({ x: 0, y: 0 });
 
   const scrollToNextSection = () => {
     const carouselSection = document.getElementById('skills-section');
@@ -25,6 +30,24 @@ export default function HeroCyberpunk() {
       carouselSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
+  // Ajoutez cet effet pour suivre la souris
+  useEffect(() => {
+    const handleTitleMouseMove = (e: MouseEvent) => {
+      const title = document.getElementById('cyber-title');
+      if (title) {
+        const rect = title.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const rotateX = (e.clientY - centerY) / 20;
+        const rotateY = (e.clientX - centerX) / 20;
+        setTitleRotation({ x: Math.min(Math.max(rotateX, -15), 15), y: Math.min(Math.max(rotateY, -20), 20) });
+      }
+    };
+
+    window.addEventListener('mousemove', handleTitleMouseMove);
+    return () => window.removeEventListener('mousemove', handleTitleMouseMove);
+  }, []);
 
   // Gestion du scroll manuelle
   useEffect(() => {
@@ -52,7 +75,6 @@ export default function HeroCyberpunk() {
 
   // Initialisation des données côté client
   useEffect(() => {
-    // Initialiser mounted et dimensions
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     setDimensions({
@@ -107,19 +129,22 @@ export default function HeroCyberpunk() {
       clearInterval(glitchInterval);
       clearInterval(heavyGlitchInterval);
     };
-  }, []);
+  }, [chooseLang]);
 
   // Gestion du glitch offset - sans setState dans l'effet
   useEffect(() => {
+    if (!mounted) return;
     if (glitchIntensity > 0) {
-      const x = Math.random() * 10 - 5;
-      const y = Math.random() * 10 - 5;
+      // const x = Math.random() * 10 - 5;
+      // const y = Math.random() * 10 - 5;
+      const x = (Math.random() - 0.5) * 10; // Valeur entre -5 et 5
+      const y = (Math.random() - 0.5) * 10;
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setGlitchOffset({ x, y });
     } else {
       setGlitchOffset({ x: 0, y: 0 });
     }
-  }, [glitchIntensity]);
+  }, [glitchIntensity, mounted]);
 
   const glitchStyle = glitchIntensity > 0 ? {
     transform: `translate(${glitchOffset.x}px, ${glitchOffset.y}px)`,
@@ -229,7 +254,7 @@ export default function HeroCyberpunk() {
         </motion.div>
 
         {/* Titre principal avec effet néon */}
-        <motion.h1
+        {/* <motion.h1
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, type: "spring" }}
@@ -241,7 +266,39 @@ export default function HeroCyberpunk() {
           <span className="relative text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 [text-shadow:0_0_30px_rgba(0,255,255,0.5)]">
             Cédric Kuchen
           </span>
+        </motion.h1> */}
+
+
+
+        <motion.h1
+          id="cyber-title"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, type: "spring" }}
+          className="relative mb-4"
+        >
+          <motion.div
+            className="relative"
+            animate={{
+              rotateX: titleRotation.x,
+              rotateY: titleRotation.y,
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            style={{ 
+              transformStyle: "preserve-3d",
+              transformOrigin: "center center"
+            }}
+          >
+            <span className="absolute inset-0 text-7xl md:text-9xl font-black text-cyan-500 blur-2xl opacity-50 animate-pulse">
+              Cédric Kuchen
+            </span>
+            <span className="relative text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 [text-shadow:0_0_30px_rgba(0,255,255,0.5)] block">
+              Cédric Kuchen
+            </span>
+          </motion.div>
         </motion.h1>
+
+
 
         {/* Sous-titre avec glitch */}
         <motion.div
@@ -310,10 +367,15 @@ export default function HeroCyberpunk() {
             onClick={scrollToNextSection}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative px-8 py-4 bg-transparent border-2 border-cyan-500 rounded-sm overflow-hidden"
+            className="group relative px-8 py-4 bg-transparent border-2 border-cyan-500 rounded-sm overflow-hidden cursor-pointer"
           >
             <span className="relative z-10 text-cyan-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
               &gt; {chooseLang === "FR" ? "INITIALISER_PROTOCOLE" : "INITIALIZE_PROTOCOL"}
+
+                <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-md text-cyan-500">
+                  {chooseLang === "FR" ? "🔓 LANCER" : "🔓 LAUNCH"}
+                </span>
+
             </span>
             <motion.div
               className="absolute inset-0 bg-cyan-500"
@@ -327,10 +389,15 @@ export default function HeroCyberpunk() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group px-8 py-4 relative bg-transparent border-2 border-purple-500 rounded-sm overflow-hidden"
+              className="group px-8 py-4 relative bg-transparent border-2 border-purple-500 rounded-sm overflow-hidden cursor-pointer"
             >
               <span className="relative z-10 text-purple-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
                 &gt; {chooseLang === "FR" ? "ÉTABLIR_LA_CONNEXION" : "ESTABLISH_CONNECTION"}
+
+                <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-md text-purple-500">
+                  {chooseLang === "FR" ? "📧 EMAIL" : "📧 EMAIL"}
+                </span>
+
               </span>
               <motion.div
                 className="absolute inset-0 bg-purple-500"

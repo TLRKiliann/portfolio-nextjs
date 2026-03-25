@@ -60,7 +60,7 @@ const categoryConfig: CategoryConfigType = {
   'CI/CD': { 
     name: 'CI/CD', 
     glitch: '>_ CI/CD_',
-    grid: '1 1 1 1 0 1',
+    grid: '0 1 1 0 0 1',
     binary: '0111',
     color: '#00ffff'
   },
@@ -343,8 +343,7 @@ export default function SkillsCyberpunk() {
                           </div>
 
                           <h3 className="text-xl pl-2 font-bold font-mono mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r transition-all rounded-sm"
-                            style={{ backgroundImage: `linear-gradient(90deg, ${skill.color}, white)` }}
-                            
+                            style={{ backgroundImage: `linear-gradient(90deg, ${skill.color}, white)` }} 
                           >
 
                             {skill.name}
