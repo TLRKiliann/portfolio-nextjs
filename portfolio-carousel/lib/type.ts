@@ -22,3 +22,49 @@ export type BinaryNumbersType = {
   duration: number;
   text: string;
 }
+
+export type SkillsType = {
+  name: string;
+  icon: React.ElementType;
+  level: number;
+  color: string;
+  category: string;
+}
+
+export type CategoryConfigType = {
+  'CI/CD': { 
+    name: string;
+    glitch: string;
+    grid: string;
+    binary: string;
+    color: string;
+  },
+  frontend: { 
+    name: string;
+    glitch: string;
+    grid: string;
+    binary: string;
+    color: string;
+  },
+  backend: { 
+    name: string;
+    glitch: string;
+    grid: string;
+    binary: string;
+    color: string;
+  },
+  database: { 
+    name: string;
+    glitch: string;
+    grid: string;
+    binary: string;
+    color: string;
+  },
+  design: { 
+    name: string;
+    glitch: string;
+    grid: string;
+    binary: string;
+    color: string;
+  },
+}

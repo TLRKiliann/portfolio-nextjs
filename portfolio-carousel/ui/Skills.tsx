@@ -1,10 +1,14 @@
 'use client';
 
+import { CategoryConfigType, SkillsType } from '@/lib/type';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { 
+  SiGithub,
+  SiGitlab,
+  SiGit,
   SiReact,
   SiVite,
   SiTypescript, 
@@ -22,11 +26,16 @@ import {
   SiJavascript
 } from 'react-icons/si';
 
-const skills = [
+const skills: SkillsType[] = [
+  // CI/CD
+  { name: 'Github', icon: SiGithub, level: 95, color: '#e6edf3', category: 'CI/CD' },
+  { name: 'Gitlab', icon: SiGitlab, level: 70, color: '#ffa500', category: 'CI/CD' },
+  { name: 'Git', icon: SiGit, level: 90, color: '#ffa500', category: 'CI/CD' },
+
   // FRONTEND
   { name: 'React', icon: SiReact, level: 75, color: '#61DAFB', category: 'frontend' },
-  { name: 'Vite.js', icon: SiVite, level: 85, color: 'orchid', category: 'frontend' },
-  { name: 'Next.js', icon: SiNextdotjs, level: 85, color: '#ffffff', category: 'frontend' },
+  { name: 'Vite.js', icon: SiVite, level: 85, color: '#da70d6', category: 'frontend' },
+  { name: 'Next.js', icon: SiNextdotjs, level: 85, color: '#e6edf3', category: 'frontend' },
   { name: 'JavaScript', icon: SiJavascript, level: 70, color: '#F7DF1E', category: 'frontend' },
   { name: 'TypeScript', icon: SiTypescript, level: 85, color: '#3178C6', category: 'frontend' },
   
@@ -47,7 +56,14 @@ const skills = [
   { name: 'Figma', icon: SiFigma, level: 80, color: '#F24E1E', category: 'design' },
 ];
 
-const categoryConfig = {
+const categoryConfig: CategoryConfigType = {
+  'CI/CD': { 
+    name: 'CI/CD', 
+    glitch: '>_ CI/CD_',
+    grid: '1 1 1 1 0 1',
+    binary: '0111',
+    color: '#00ffff'
+  },
   frontend: { 
     name: 'FRONTEND', 
     glitch: '>_ FRONTEND_',
@@ -87,9 +103,9 @@ export default function SkillsCyberpunk() {
     threshold: 0.1,
   });
 
-  const [glitchIndex, setGlitchIndex] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [mounted, setMounted] = useState(false);
+  const [glitchIndex, setGlitchIndex] = useState<number>(0);
+  const [mousePosition, setMousePosition] = useState<{x: number, y: number}>({ x: 0, y: 0 });
+  const [mounted, setMounted] = useState<boolean>(false);
   const [binaryParticles, setBinaryParticles] = useState<Array<{x: number, y: number, duration: number, delay: number, value: string}>>([]);
 
   // Tous les hooks doivent être appelés avant les conditions
@@ -107,7 +123,7 @@ export default function SkillsCyberpunk() {
     setBinaryParticles(particles);
 
     const glitchInterval = setInterval(() => {
-      setGlitchIndex(Math.floor(Math.random() * 4));
+      setGlitchIndex(Math.floor(Math.random() * 5));
     }, 2000);
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -308,7 +324,16 @@ export default function SkillsCyberpunk() {
                           <div className="flex items-start justify-between mb-4">
                             <div className="relative">
                               <div className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: skill.color }} />
-                              <skill.icon className="w-12 h-12 relative z-10 transition-all duration-300 group-hover:scale-110" style={{ color: skill.color }} />
+                              <skill.icon className="w-12 h-12 relative z-10 transition-all duration-300 group-hover:scale-110" 
+                                style={{ 
+                                  color: skill.color,
+                                  filter: skill.name === 'Next.js' || skill.name === 'Github' || skill.color === '#000000' 
+                                    ? 'drop-shadow(0 0 2px white)' 
+                                    : 'none',
+                                  stroke: skill.name === 'Next.js' ? 'white' : 'none',
+                                  strokeWidth: skill.name === 'Next.js' ? '0.5' : '0'
+                                }} 
+                              />
                             </div>
                             
                             <div className="relative">
@@ -318,7 +343,10 @@ export default function SkillsCyberpunk() {
                           </div>
 
                           <h3 className="text-xl pl-2 font-bold font-mono mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r transition-all rounded-sm"
-                            style={{ backgroundImage: `linear-gradient(90deg, ${skill.name === "Next.js" ? "black" : skill.color}, white)` }}>
+                            style={{ backgroundImage: `linear-gradient(90deg, ${skill.color}, white)` }}
+                            
+                          >
+
                             {skill.name}
                           </h3>
 
@@ -332,7 +360,7 @@ export default function SkillsCyberpunk() {
                                 animate={inView ? { width: `${skill.level}%` } : {}}
                                 transition={{ duration: 1, delay: categoryIndex * 0.3 + skillIndex * 0.1 + 0.5 }}
                                 className="h-full relative rounded-xs"
-                                style={{ background: `linear-gradient(90deg, ${skill.name === "Next.js" ? "black" : skill.color}, white)` }}
+                                style={{ background: `linear-gradient(90deg, ${skill.color}, white)` }}
                               >
                                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent animate-pulse" />
                               </motion.div>
