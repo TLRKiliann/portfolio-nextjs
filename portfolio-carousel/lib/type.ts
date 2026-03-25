@@ -1,3 +1,8 @@
+export type LanguageContextType = {
+  chooseLang: string;
+  setChooseLang: (lang: string) => void;
+}
+
 export type Project = {
   id: number;
   title: string;
