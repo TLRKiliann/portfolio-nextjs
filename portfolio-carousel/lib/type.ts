@@ -28,6 +28,7 @@ export type SkillsType = {
   icon: React.ElementType;
   level: number;
   color: string;
+  barColor?: string;
   category: string;
 }
 

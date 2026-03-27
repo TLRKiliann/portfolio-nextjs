@@ -28,14 +28,14 @@ import {
 
 const skills: SkillsType[] = [
   // CI/CD
-  { name: 'Github', icon: SiGithub, level: 95, color: '#e6edf3', category: 'CI/CD' },
+  { name: 'Github', icon: SiGithub, level: 95, color: '#e6edf3', barColor: '#1a1a1a', category: 'CI/CD' },
   { name: 'Gitlab', icon: SiGitlab, level: 70, color: '#ffa500', category: 'CI/CD' },
   { name: 'Git', icon: SiGit, level: 90, color: '#ffa500', category: 'CI/CD' },
 
   // FRONTEND
   { name: 'React', icon: SiReact, level: 75, color: '#61DAFB', category: 'frontend' },
   { name: 'Vite.js', icon: SiVite, level: 85, color: '#da70d6', category: 'frontend' },
-  { name: 'Next.js', icon: SiNextdotjs, level: 85, color: '#e6edf3', category: 'frontend' },
+  { name: 'Next.js', icon: SiNextdotjs, level: 85, color: '#e6edf3', barColor: '#1a1a1a', category: 'frontend' },
   { name: 'JavaScript', icon: SiJavascript, level: 70, color: '#F7DF1E', category: 'frontend' },
   { name: 'TypeScript', icon: SiTypescript, level: 85, color: '#3178C6', category: 'frontend' },
   
@@ -322,17 +322,18 @@ export default function SkillsCyberpunk() {
                         
                         <div className="relative z-10">
                           <div className="flex items-start justify-between mb-4">
-                            <div className="relative">
+                            <div className={`relative ${skill.barColor ? 'bg-white rounded-md p-1.5 group-hover:bg-transparent transition-colors duration-300' : ''}`}>
                               <div className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: skill.color }} />
-                              <skill.icon className="w-12 h-12 relative z-10 transition-all duration-300 group-hover:scale-110" 
-                                style={{ 
-                                  color: skill.color,
-                                  filter: skill.name === 'Next.js' || skill.name === 'Github' || skill.color === '#000000' 
-                                    ? 'drop-shadow(0 0 2px white)' 
+                              <skill.icon
+                                className={`w-12 h-12 relative z-10 transition-all duration-300 group-hover:scale-110 ${skill.barColor ? 'text-black group-hover:text-white' : ''}`}
+                                style={{
+                                  color: skill.barColor ? undefined : skill.color,
+                                  filter: !skill.barColor && (skill.name === 'Next.js' || skill.name === 'Github' || skill.color === '#000000')
+                                    ? 'drop-shadow(0 0 2px white)'
                                     : 'none',
-                                  stroke: skill.name === 'Next.js' ? 'white' : 'none',
+                                  stroke: skill.name === 'Next.js' ? (skill.barColor ? 'black' : 'white') : 'none',
                                   strokeWidth: skill.name === 'Next.js' ? '0.5' : '0'
-                                }} 
+                                }}
                               />
                             </div>
                             
@@ -342,12 +343,20 @@ export default function SkillsCyberpunk() {
                             </div>
                           </div>
 
-                          <h3 className="text-xl pl-2 font-bold font-mono mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r transition-all rounded-sm"
-                            style={{ backgroundImage: `linear-gradient(90deg, ${skill.color}, white)` }} 
-                          >
-
-                            {skill.name}
-                          </h3>
+                          {skill.barColor ? (
+                            <div className="relative mb-4">
+                              <div className="absolute inset-0 rounded-sm transition-opacity duration-300 group-hover:opacity-0"
+                                style={{ backgroundImage: `linear-gradient(90deg, ${skill.barColor}, white)` }} />
+                              <h3 className="text-xl pl-2 font-bold font-mono text-gray-200 group-hover:text-white transition-colors rounded-sm relative z-10">
+                                {skill.name}
+                              </h3>
+                            </div>
+                          ) : (
+                            <h3 className="text-xl pl-2 font-bold font-mono mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r transition-all rounded-sm"
+                              style={{ backgroundImage: `linear-gradient(90deg, ${skill.color}, white)` }}>
+                              {skill.name}
+                            </h3>
+                          )}
 
                           <div className="relative pt-4">
                             <div className="absolute -top-1 left-0 text-[8px] font-mono text-gray-500">0%</div>
@@ -359,7 +368,7 @@ export default function SkillsCyberpunk() {
                                 animate={inView ? { width: `${skill.level}%` } : {}}
                                 transition={{ duration: 1, delay: categoryIndex * 0.3 + skillIndex * 0.1 + 0.5 }}
                                 className="h-full relative rounded-xs"
-                                style={{ background: `linear-gradient(90deg, ${skill.color}, white)` }}
+                                style={{ background: `linear-gradient(90deg, ${skill.barColor ?? skill.color}, white)` }}
                               >
                                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent animate-pulse" />
                               </motion.div>

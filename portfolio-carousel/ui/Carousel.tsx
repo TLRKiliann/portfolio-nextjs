@@ -105,7 +105,13 @@ export default function Carousel() {
         <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#00ffff] animate-pulse" />
       </div>
 
-      <div className="container text-center mx-auto px-4 relative z-10">
+      <motion.div
+        className="container text-center mx-auto px-4 relative z-10"
+        initial={{ x: 200, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+      >
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -287,7 +293,7 @@ export default function Carousel() {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+      </motion.div>
     </div>
   );
 }
