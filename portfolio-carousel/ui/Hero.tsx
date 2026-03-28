@@ -2,17 +2,15 @@
 
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroCyberpunk() {
 
-  const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState<boolean>(false);
 
   const [time, setTime] = useState<Date>(new Date());
 
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [glitchIntensity, setGlitchIntensity] = useState<number>(0);
   const [glitchOffset, setGlitchOffset] = useState<{x: number, y: number}>({ x: 0, y: 0 });
 
@@ -48,30 +46,6 @@ export default function HeroCyberpunk() {
     window.addEventListener('mousemove', handleTitleMouseMove);
     return () => window.removeEventListener('mousemove', handleTitleMouseMove);
   }, []);
-
-  // Gestion du scroll manuelle
-  useEffect(() => {
-    if (!mounted || !containerRef.current) return;
-
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const scrollY = window.scrollY;
-      const start = rect.top + scrollY;
-      const end = start + rect.height;
-      const progress = Math.min(Math.max((scrollY - start) / (end - start), 0), 1);
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [mounted]);
-
-  // Calcul des transformations
-  const y: string = `${scrollProgress * 30}%`;
-  const opacityValue: number = 1 - scrollProgress * 2;
 
   // Initialisation des données côté client
   useEffect(() => {
@@ -171,8 +145,7 @@ export default function HeroCyberpunk() {
   }
 
   return (
-    <section 
-      ref={containerRef}
+    <section
       className="relative h-screen flex items-center justify-center overflow-hidden bg-black"
     >
       {/* Grille cyberpunk animée */}
@@ -238,8 +211,6 @@ export default function HeroCyberpunk() {
         style={{
           transform: `perspective(1000px) rotateX(${mousePosition.y * 0.5}deg) rotateY(${mousePosition.x * 0.5}deg)`,
           ...glitchStyle,
-          y,
-          opacity: opacityValue
         }}
       >
         {/* Badge "ONLINE" clignotant */}
