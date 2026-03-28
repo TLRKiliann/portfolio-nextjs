@@ -276,6 +276,7 @@ export default function HeroCyberpunk() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, type: "spring" }}
           className="relative mb-4"
+          style={{ perspective: "900px" }}
         >
           <motion.div
             className="relative"
@@ -283,16 +284,46 @@ export default function HeroCyberpunk() {
               rotateX: titleRotation.x,
               rotateY: titleRotation.y,
             }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            style={{ 
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            style={{
               transformStyle: "preserve-3d",
-              transformOrigin: "center center"
+              transformOrigin: "center center",
             }}
           >
-            <span className="absolute inset-0 text-7xl md:text-9xl font-black text-cyan-500 blur-2xl opacity-50 animate-pulse">
+            {/* Halo ambiant */}
+            <span className="absolute inset-0 text-7xl md:text-9xl font-black text-cyan-400 blur-3xl opacity-40 animate-pulse block">
               Cédric Kuchen
             </span>
-            <span className="relative text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 [text-shadow:0_0_30px_rgba(0,255,255,0.5)] block">
+
+            {/* Extrusion 3D — dégradé fluide cyan → violet → sombre */}
+            {Array.from({ length: 20 }, (_, i) => {
+              const t = i / 19;
+              const r = Math.floor(0 + 100 * t);
+              const g = Math.floor(210 - 170 * t);
+              const b = Math.floor(255 - 60 * t);
+              const alpha = Math.max(0.05, 0.48 - i * 0.022);
+              return (
+                <span
+                  key={i}
+                  className="absolute text-7xl md:text-9xl font-black block w-full"
+                  style={{
+                    transform: `translateZ(${-(i + 1) * 4}px)`,
+                    color: `rgba(${r}, ${g}, ${b}, ${alpha})`,
+                  }}
+                >
+                  Cédric Kuchen
+                </span>
+              );
+            })}
+
+            {/* Face avant principale */}
+            <span
+              className="relative text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 block"
+              style={{
+                transform: "translateZ(9px)",
+                filter: "drop-shadow(0 0 18px rgba(0,255,255,0.7)) drop-shadow(0 0 40px rgba(168,85,247,0.4))",
+              }}
+            >
               Cédric Kuchen
             </span>
           </motion.div>
