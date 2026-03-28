@@ -1,7 +1,9 @@
 // app/layout.tsx
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { LanguageProvider } from '@/context/LanguageContext';
+import Translation from '@/ui/Translation';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'],   preload: false })
 
@@ -16,9 +18,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className="scroll-smooth">
-      <body className={`${inter.className} bg-gray-50`}>
-        {children}
+    <html lang="fr" className="scroll-smooth relative">
+      <body className={`${inter.className} bg-gray-50 relative min-h-screen`}>
+        <LanguageProvider>
+          <Translation />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   )

@@ -9,7 +9,9 @@ import Contact from '@/ui/Contact';
 import Legend from '@/ui/Legend';
 
 export default function Home() {
+
   const containerRef = useRef(null);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
