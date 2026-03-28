@@ -9,6 +9,17 @@ import {
   SiGithub,
   SiGitlab,
   SiGit,
+
+  SiKubernetes,
+  SiDocker,
+  SiProxmox,
+
+  SiLinux,
+  SiDebian,
+  SiRaspberrypi,
+
+//import { GrOracle } from "react-icons/gr";
+
   SiReact,
   SiVite,
   SiTypescript, 
