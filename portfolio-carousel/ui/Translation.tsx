@@ -18,7 +18,7 @@ export default function Translation() {
             <select
                 value={chooseLang}
                 onChange={handleLang}
-                className="text-4xl px-1 rounded bg-transparent cursor-pointer text-center focus:outline-none focus:ring-0 focus:border-transparent"
+                className="text-2xl sm:text-3xl px-1 rounded bg-transparent cursor-pointer text-center focus:outline-none focus:ring-0 focus:border-transparent"
               >
                 <option value="FR">🇫🇷</option>
                 <option value="EN">🇺🇸</option>
