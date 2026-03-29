@@ -101,8 +101,10 @@ export default function Carousel() {
       
       {/* Lignes de balayage néon */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#00ffff] animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#00ffff] animate-pulse" />
+        <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-400 to-fuchsia-500 opacity-80 shadow-[0_0_12px_#00ffff,0_0_30px_#ff00ff40]" />
+        <div className="absolute top-[1px] left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-400/30 to-fuchsia-500/30" />
+        <div className="absolute bottom-[1px] left-0 w-full h-px bg-linear-to-r from-fuchsia-500/30 to-transparent via-cyan-400/30" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-fuchsia-500 via-cyan-400 to-transparent opacity-80 shadow-[0_0_12px_#00ffff,0_0_30px_#ff00ff40]" />
       </div>
 
       <motion.div
@@ -178,7 +180,7 @@ export default function Carousel() {
               <motion.div
                 whileHover={{ y: -10, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className="relative bg-linear-to-br from-gray-900 to-black rounded-xl overflow-hidden shadow-2xl cursor-pointer group border border-cyan-500 border-opacity-30 hover:border-cyan-500/80 transition-all duration-300"
+                className="relative bg-linear-to-br from-gray-900 to-black rounded-xl overflow-hidden shadow-2xl cursor-pointer group border border-cyan-500/30 hover:border-cyan-500/80 transition-all duration-300"
               >
                 {/* Effet de scan néon */}
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -193,7 +195,7 @@ export default function Carousel() {
                     alt={project.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-500 brightness-85 group-hover:brightness-100"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500 brightness-[0.85] group-hover:brightness-100"
                   />
                   {/* Dégradé plus subtil */}
                   <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent" />
@@ -218,7 +220,7 @@ export default function Carousel() {
                   </div>
                 </div>
                 
-                <div className="p-6 bg-black bg-opacity-50 backdrop-blur-sm">
+                <div className="p-6 bg-black/50 backdrop-blur-sm">
                   <p className="text-gray-300 mb-4 font-mono text-sm">
                     {chooseLang === "FR" ? project.description_FR : project.description_EN}
                   </p>
@@ -227,7 +229,7 @@ export default function Carousel() {
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 bg-cyan-950 bg-opacity-50 border border-cyan-500 border-opacity-30 text-cyan-400 rounded-md text-sm font-mono hover:border-cyan-500/80 transition-colors"
+                        className="px-3 py-1 bg-cyan-950/50 border border-cyan-500/30 text-cyan-400 rounded-md text-sm font-mono hover:border-cyan-500/80 transition-colors"
                       >
                         {tech}
                       </span>

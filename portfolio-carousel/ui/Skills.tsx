@@ -104,7 +104,7 @@ export default function SkillsCyberpunk() {
   });
 
   const [glitchIndex, setGlitchIndex] = useState<number>(0);
-  const [mousePosition, setMousePosition] = useState<{x: number, y: number}>({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState<number>(0);
   const [mounted, setMounted] = useState<boolean>(false);
   const [binaryParticles, setBinaryParticles] = useState<Array<{x: number, y: number, duration: number, delay: number, value: string}>>([]);
 
@@ -127,10 +127,7 @@ export default function SkillsCyberpunk() {
     }, 2000);
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
+      setMousePosition((e.clientY / window.innerHeight - 0.5) * 20);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -178,7 +175,7 @@ export default function SkillsCyberpunk() {
             linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
-          transform: `perspective(500px) rotateX(${mousePosition.y}deg)`,
+          transform: `perspective(500px) rotateX(${mousePosition}deg)`,
         }} />
       </div>
 
@@ -209,8 +206,7 @@ export default function SkillsCyberpunk() {
       </div>
 
       <div className="container mx-auto px-4 relative z-20">
-        {/* Le reste du contenu inchangé... */}
-        <div className="text-center mb-32 relative">
+<div className="text-center mb-32 relative">
           <div className="relative inline-block">
 
             <motion.h2
@@ -328,7 +324,7 @@ export default function SkillsCyberpunk() {
                                 className={`w-12 h-12 relative z-10 transition-all duration-300 group-hover:scale-110 ${skill.barColor ? 'text-black group-hover:text-white' : ''}`}
                                 style={{
                                   color: skill.barColor ? undefined : skill.color,
-                                  filter: !skill.barColor && (skill.name === 'Next.js' || skill.name === 'Github' || skill.color === '#000000')
+                                  filter: !skill.barColor && (skill.name === 'Next.js' || skill.name === 'Github')
                                     ? 'drop-shadow(0 0 2px white)'
                                     : 'none',
                                   stroke: skill.name === 'Next.js' ? (skill.barColor ? 'black' : 'white') : 'none',

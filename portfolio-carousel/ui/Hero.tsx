@@ -15,9 +15,7 @@ export default function HeroCyberpunk() {
   const [glitchOffset, setGlitchOffset] = useState<{x: number, y: number}>({ x: 0, y: 0 });
 
   const [mousePosition, setMousePosition] = useState<{x: number, y: number}>({ x: 0, y: 0 });
-  const [dimensions, setDimensions] = useState<{width: number, height: number}>({ width: 1000, height: 800 });
-
-  const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, code: string, duration: number, delay: number}>>([]);
+const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, code: string, duration: number, delay: number}>>([]);
 
   const { chooseLang } = useLanguage();
   const [titleRotation, setTitleRotation] = useState<{x: number, y: number}>({ x: 0, y: 0 });
@@ -51,12 +49,6 @@ export default function HeroCyberpunk() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
-    setDimensions({
-       
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
-
     // Générer les données binaires
     const generateBinaryData = () => {
       return Array(20).fill(null).map(() => ({
@@ -124,15 +116,6 @@ export default function HeroCyberpunk() {
     transform: `translate(${glitchOffset.x}px, ${glitchOffset.y}px)`,
     filter: `hue-rotate(${glitchIntensity * 50}deg)`,
   } : {};
-
-  // Génération de la grille cyberpunk
-  const gridSize = 40;
-  const gridLines = [];
-  if (dimensions.width) {
-    for (let i = 0; i < dimensions.width / gridSize; i++) {
-      gridLines.push(i * gridSize);
-    }
-  }
 
   if (!mounted) {
     return (
@@ -374,8 +357,8 @@ export default function HeroCyberpunk() {
             <span className="relative z-10 text-cyan-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
               &gt; {chooseLang === "FR" ? "INITIALISER_PROTOCOLE" : "INITIALIZE_PROTOCOL"}
 
-                <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-md text-cyan-500">
-                  {chooseLang === "FR" ? "🔓 LANCER" : "🔓 LAUNCH"}
+                <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-base text-cyan-500">
+                  {chooseLang === "FR" ? "⚡ LANCER_LE_SYSTÈME //" : "⚡ LAUNCH_SYSTEM //"}
                 </span>
 
             </span>
@@ -387,28 +370,27 @@ export default function HeroCyberpunk() {
             />
           </motion.button>
 
-          <a href={`mailto:cedric.kuchen@protonmail.com`}>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group px-8 py-4 relative bg-transparent border-2 border-purple-500 rounded-sm overflow-hidden cursor-pointer"
-            >
-              <span className="relative z-10 text-purple-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
-                &gt; {chooseLang === "FR" ? "ÉTABLIR_LA_CONNEXION" : "ESTABLISH_CONNECTION"}
+          <motion.a
+            href="mailto:cedric.kuchen@protonmail.com"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group px-8 py-4 relative bg-transparent border-2 border-purple-500 rounded-sm overflow-hidden cursor-pointer"
+          >
+            <span className="relative z-10 text-purple-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
+              &gt; {chooseLang === "FR" ? "ÉTABLIR_LA_CONNEXION" : "ESTABLISH_CONNECTION"}
 
-                <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-md text-purple-500">
-                  {chooseLang === "FR" ? "📧 EMAIL" : "📧 EMAIL"}
-                </span>
-
+              <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-base text-purple-500">
+                {chooseLang === "FR" ? "◈ ENVOYER_UN_SIGNAL" : "◈ SEND_A_SIGNAL"}
               </span>
-              <motion.div
-                className="absolute inset-0 bg-purple-500"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: 0 }}
-                transition={{ type: "tween" }}
-              />
-            </motion.button>
-          </a>
+
+            </span>
+            <motion.div
+              className="absolute inset-0 bg-purple-500"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: 0 }}
+              transition={{ type: "tween" }}
+            />
+          </motion.a>
 
         </motion.div>
 
