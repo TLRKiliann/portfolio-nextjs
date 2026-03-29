@@ -15,8 +15,10 @@ export default function Contact() {
       
       {/* Lignes de balayage néon */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#00ffff] animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#00ffff] animate-pulse" />
+        <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-400 to-fuchsia-500 opacity-80 shadow-[0_0_12px_#00ffff,0_0_30px_#ff00ff40]" />
+        <div className="absolute top-[1px] left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-400/30 to-fuchsia-500/30" />
+        <div className="absolute bottom-[1px] left-0 w-full h-px bg-linear-to-r from-fuchsia-500/30 to-transparent via-cyan-400/30" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-fuchsia-500 via-cyan-400 to-transparent opacity-80 shadow-[0_0_12px_#00ffff,0_0_30px_#ff00ff40]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10 flex flex-col min-h-[100dvh]">
@@ -88,7 +90,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ y: -5, scale: 1.1 }}
-            className="bg-black bg-opacity-50 p-2 sm:p-2.5 md:p-3 rounded-full border border-cyan-500/50 hover:border-cyan-500 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] transition-all backdrop-blur-sm"
+            className="bg-black/50 p-2 sm:p-2.5 md:p-3 rounded-full border border-cyan-500/50 hover:border-cyan-500 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] transition-all backdrop-blur-sm"
             aria-label="GitHub"
           >
             <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
@@ -101,7 +103,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ y: -5, scale: 1.1 }}
-            className="bg-black bg-opacity-50 p-2 sm:p-2.5 md:p-3 rounded-full border border-cyan-500/50 hover:border-cyan-500 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] transition-all backdrop-blur-sm"
+            className="bg-black/50 p-2 sm:p-2.5 md:p-3 rounded-full border border-cyan-500/50 hover:border-cyan-500 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] transition-all backdrop-blur-sm"
             aria-label="LinkedIn"
           >
             <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
@@ -114,7 +116,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ y: -5, scale: 1.1 }}
-            className="bg-black bg-opacity-50 p-2 sm:p-2.5 md:p-3 rounded-full border border-fuchsia-500/50 hover:border-fuchsia-500 hover:shadow-[0_0_15px_rgba(255,0,255,0.5)] transition-all backdrop-blur-sm"
+            className="bg-black/50 p-2 sm:p-2.5 md:p-3 rounded-full border border-fuchsia-500/50 hover:border-fuchsia-500 hover:shadow-[0_0_15px_rgba(255,0,255,0.5)] transition-all backdrop-blur-sm"
             aria-label="CodePen"
           >
             <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-fuchsia-400" fill="currentColor" viewBox="0 0 24 24">
@@ -127,7 +129,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ y: -5, scale: 1.1 }}
-            className="bg-black bg-opacity-50 p-2 sm:p-2.5 md:p-3 rounded-full border border-red-500/50 hover:border-red-500 hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-all backdrop-blur-sm"
+            className="bg-black/50 p-2 sm:p-2.5 md:p-3 rounded-full border border-red-500/50 hover:border-red-500 hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-all backdrop-blur-sm"
             aria-label="YouTube"
           >
             <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
