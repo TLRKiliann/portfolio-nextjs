@@ -1,8 +1,8 @@
 "use client";
 
 import { BinaryNumbersType } from "@/lib/type";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { textAPI_EN, textAPI_FR, textBackendEN, textBackendFR, textsEN_Xp, textsFR_Xp, textSPA_EN, textSPA_FR } from "@/lib/TextForLegend";
 
@@ -10,6 +10,29 @@ export default function Legend() {
 
   const { chooseLang } = useLanguage();
   const [binaryNumbers, setBinaryNumbers] = useState<BinaryNumbersType[]>([]);
+
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(terminalRef, { once: true });
+  const [displayedText, setDisplayedText] = useState('');
+
+  const fullText = chooseLang === "FR"
+    ? `En tant que développeur web, il est essentiel de maîtriser les enjeux de sécurité, de performance, de maintenabilité et d'expérience utilisateur, en adoptant des bonnes pratiques rigoureuses à chaque niveau : code, données, infrastructure et interactions.`
+    : `As a web developer, it is essential to master the challenges of security, performance, maintainability, and user experience by adopting rigorous best practices at every level: code, data, infrastructure, and interactions.`;
+
+  useEffect(() => {
+    if (!isInView) return;
+    setDisplayedText('');
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < fullText.length) {
+        setDisplayedText(fullText.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 18);
+    return () => clearInterval(interval);
+  }, [isInView, fullText]);
 
   useEffect(() => {
     const numbers = Array(15).fill(null).map(() => ({
@@ -68,7 +91,7 @@ export default function Legend() {
         </div>
 
         {/* Citation principale avec effet terminal - plein largeur sur mobile */}
-        <div className="relative w-full sm:w-[70%] lg:w-[50%] m-auto group px-4 sm:px-0">
+        <div ref={terminalRef} className="relative w-full sm:w-[70%] lg:w-[50%] m-auto group px-4 sm:px-0">
           <div className="absolute -inset-1 bg-linear-to-r from-cyan-500 to-fuchsia-500 rounded-xl blur-xl opacity-0 group-hover:opacity-20 transition duration-500" />
           <div className="relative p-4 sm:p-6 rounded-xl bg-black/80 backdrop-blur-sm shadow-[0_0_30px_rgba(0,255,255,0.4)] border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -82,13 +105,13 @@ export default function Legend() {
               <span className="text-[8px] sm:text-[10px] text-cyan-400 ml-auto animate-pulse">SYSTEM_READY</span>
             </div>
             
-            <p className="text-justify text-gray-300 font-mono text-xs sm:text-sm leading-relaxed">
+            <p className="text-justify text-cyan-300 font-mono text-xs sm:text-sm leading-relaxed">
               <span className="text-cyan-400">[ SYSTEM.MSG ]</span>
-              <span className="text-fuchsia-400"> &gt;</span> {chooseLang === "FR" ? `En tant que développeur web, il est essentiel de maîtriser les enjeux de sécurité, 
-              de performance, de maintenabilité et d&apos;expérience utilisateur, en adoptant des bonnes pratiques rigoureuses à chaque niveau : 
-              code, données, infrastructure et interactions.` : `As a web developer, it is essential to master the challenges of security, 
-              performance, maintainability, and user experience by adopting rigorous best practices at every level: 
-              code, data, infrastructure, and interactions.`}
+              <span className="text-fuchsia-400"> &gt;</span>{' '}
+              {displayedText}
+              {displayedText.length < fullText.length && (
+                <span className="text-cyan-400 animate-pulse">▌</span>
+              )}
             </p>
             
             {/* Ligne de commande fictive */}
