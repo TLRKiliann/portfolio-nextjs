@@ -20,7 +20,6 @@ export default function HeroCyberpunk() {
 const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, code: string, duration: number, delay: number}>>([]);
 
   const { chooseLang } = useLanguage();
-  const [titleRotation, setTitleRotation] = useState<{x: number, y: number}>({ x: 0, y: 0 });
 
   const scrollToNextSection = () => {
     const carouselSection = document.getElementById('skills-section');
@@ -29,29 +28,13 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
     }
   };
 
-  // Ajoutez cet effet pour suivre la souris
-  useEffect(() => {
-    const handleTitleMouseMove = (e: MouseEvent) => {
-      const title = document.getElementById('cyber-title');
-      if (title) {
-        const rect = title.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const rotateX = (e.clientY - centerY) / 20;
-        const rotateY = (e.clientX - centerX) / 20;
-        setTitleRotation({ x: Math.min(Math.max(rotateX, -15), 15), y: Math.min(Math.max(rotateY, -20), 20) });
-      }
-    };
-
-    window.addEventListener('mousemove', handleTitleMouseMove);
-    return () => window.removeEventListener('mousemove', handleTitleMouseMove);
-  }, []);
-
   // Initialisation des données côté client
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const mountTimer = setTimeout(() => {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMounted(true);
+    }, 1000);
     // Générer les données binaires
     const generateBinaryData = () => {
       return Array(20).fill(null).map(() => ({
@@ -93,6 +76,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
+      clearTimeout(mountTimer);
       window.removeEventListener('mousemove', handleMouseMove);
       clearInterval(timer);
       clearInterval(glitchInterval);
@@ -123,7 +107,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
   if (!mounted) {
     return (
       <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-black">
-        <div className="text-cyan-400 font-mono text-lg sm:text-xl animate-pulse text-center px-4">
+        <div className="text-cyan-400 font-mono text-sm sm:text-4xl md:text-5xl animate-pulse text-center px-4 whitespace-nowrap">
           &gt; INITIALIZING CYBERPUNK SYSTEM...
         </div>
       </section>
@@ -348,10 +332,9 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
           style={{ perspective: "900px" }}
         >
           <motion.div
-            className="relative"
             animate={{
-              rotateX: isTouchDevice ? 0 : titleRotation.x,
-              rotateY: isTouchDevice ? 0 : titleRotation.y,
+              rotateX: isTouchDevice ? 0 : mousePosition.y * 0.5,
+              rotateY: isTouchDevice ? 0 : mousePosition.x * 0.5,
             }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             style={{
@@ -385,12 +368,24 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
               );
             })}
 
+            {/* Glow layer — séparé du gradient pour compat Firefox */}
+            <span
+              className="absolute text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black text-cyan-400 block w-full"
+              aria-hidden="true"
+              style={{
+                transform: "translateZ(8px)",
+                filter: "blur(10px)",
+                opacity: 0.65,
+              }}
+            >
+              Cédric Kuchen
+            </span>
+
             {/* Face avant principale */}
             <span
               className="relative text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 block"
               style={{
                 transform: "translateZ(9px)",
-                filter: "drop-shadow(0 0 18px rgba(0,255,255,0.7)) drop-shadow(0 0 40px rgba(168,85,247,0.4))",
               }}
             >
               Cédric Kuchen
