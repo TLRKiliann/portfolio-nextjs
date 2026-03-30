@@ -16,6 +16,7 @@ export default function HeroCyberpunk() {
   const [glitchOffset, setGlitchOffset] = useState<{x: number, y: number}>({ x: 0, y: 0 });
 
   const [mousePosition, setMousePosition] = useState<{x: number, y: number}>({ x: 0, y: 0 });
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
 const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, code: string, duration: number, delay: number}>>([]);
 
   const { chooseLang } = useLanguage();
@@ -50,6 +51,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
     // Générer les données binaires
     const generateBinaryData = () => {
       return Array(20).fill(null).map(() => ({
@@ -120,7 +122,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
 
   if (!mounted) {
     return (
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-black">
         <div className="text-cyan-400 font-mono text-lg sm:text-xl animate-pulse text-center px-4">
           &gt; INITIALIZING CYBERPUNK SYSTEM...
         </div>
@@ -130,7 +132,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
 
   return (
     <section
-      className="relative h-screen flex items-center justify-center overflow-hidden bg-black"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-black"
     >
       {/* Grille cyberpunk animée */}
       <svg className="absolute inset-0 w-full h-full opacity-20">
@@ -191,9 +193,11 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
 
       {/* Contenu principal avec effet 3D */}
       <motion.div
-        className="relative z-20 flex flex-col lg:flex-row items-center justify-center gap-12 px-4 max-w-7xl w-full"
+        className="relative z-20 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12 px-4 max-w-7xl w-full py-8 lg:py-0"
         style={{
-          transform: `perspective(1000px) rotateX(${mousePosition.y * 0.5}deg) rotateY(${mousePosition.x * 0.5}deg)`,
+          ...(isTouchDevice ? {} : {
+            transform: `perspective(1000px) rotateX(${mousePosition.y * 0.5}deg) rotateY(${mousePosition.x * 0.5}deg)`,
+          }),
           ...glitchStyle,
         }}
       >
@@ -311,7 +315,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6 inline-block"
+          className="mb-3 sm:mb-6 inline-block"
         >
           <span className="px-4 py-2 bg-green-500/10 border border-green-500 text-green-500 font-mono text-sm rounded-full">
             <span className="animate-pulse">●</span> SYSTEM ONLINE // v2.0.24
@@ -340,14 +344,14 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, type: "spring" }}
-          className="relative mb-4"
+          className="relative mb-3 sm:mb-4"
           style={{ perspective: "900px" }}
         >
           <motion.div
             className="relative"
             animate={{
-              rotateX: titleRotation.x,
-              rotateY: titleRotation.y,
+              rotateX: isTouchDevice ? 0 : titleRotation.x,
+              rotateY: isTouchDevice ? 0 : titleRotation.y,
             }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             style={{
@@ -356,7 +360,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
             }}
           >
             {/* Halo ambiant */}
-            <span className="absolute inset-0 text-7xl md:text-9xl font-black text-cyan-400 blur-3xl opacity-40 animate-pulse block">
+            <span className="absolute inset-0 text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black text-cyan-400 blur-3xl opacity-40 animate-pulse block">
               Cédric Kuchen
             </span>
 
@@ -370,7 +374,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
               return (
                 <span
                   key={i}
-                  className="absolute text-7xl md:text-9xl font-black block w-full"
+                  className="absolute text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black block w-full"
                   style={{
                     transform: `translateZ(${-(i + 1) * 4}px)`,
                     color: `rgba(${r}, ${g}, ${b}, ${alpha})`,
@@ -383,7 +387,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
 
             {/* Face avant principale */}
             <span
-              className="relative text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 block"
+              className="relative text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 block"
               style={{
                 transform: "translateZ(9px)",
                 filter: "drop-shadow(0 0 18px rgba(0,255,255,0.7)) drop-shadow(0 0 40px rgba(168,85,247,0.4))",
@@ -401,7 +405,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="text-2xl md:text-4xl mb-8 font-mono relative group"
+          className="text-lg sm:text-2xl md:text-3xl lg:text-4xl mb-4 sm:mb-8 font-mono relative group"
         >
           <span className="text-gray-400">&lt;</span>
           <TypeAnimation
@@ -434,7 +438,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="flex justify-center gap-8 mb-12 font-mono"
+          className="flex justify-center gap-4 sm:gap-8 mb-6 sm:mb-12 font-mono"
         >
           {[
             { label: 'PROJECTS', value: '140+', colorClass: 'text-cyan-400', labelClass: 'text-cyan-400/60' },
@@ -442,7 +446,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
             { label: 'COMMITS', value: '2.5k', colorClass: 'text-pink-400', labelClass: 'text-pink-400/60' },
           ].map((stat, i) => (
             <div key={i} className="text-center group">
-              <div className={`text-3xl font-bold ${stat.colorClass} group-hover:animate-pulse`}>
+              <div className={`text-xl sm:text-3xl font-bold ${stat.colorClass} group-hover:animate-pulse`}>
                 {stat.value}
               </div>
               <div className={`text-xs ${stat.labelClass} tracking-wider`}>
@@ -457,15 +461,15 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
-          className="flex gap-6 justify-center flex-wrap"
+          className="flex gap-3 sm:gap-6 justify-center flex-col sm:flex-row items-center"
         >
           <motion.button
             onClick={scrollToNextSection}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative px-8 py-4 bg-transparent border-2 border-cyan-500 rounded-sm overflow-hidden cursor-pointer"
+            className="group relative px-5 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-cyan-500 rounded-sm overflow-hidden cursor-pointer w-full sm:w-auto"
           >
-            <span className="relative z-10 text-cyan-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
+            <span className="relative z-10 text-cyan-500 font-mono text-xs sm:text-sm tracking-wide sm:tracking-wider group-hover:text-black transition-colors duration-300">
               &gt; {chooseLang === "FR" ? "INITIALISER_PROTOCOLE" : "INITIALIZE_PROTOCOL"}
 
                 <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-base text-cyan-500">
@@ -485,9 +489,9 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
             href="mailto:cedric.kuchen@protonmail.com"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="group px-8 py-4 relative bg-transparent border-2 border-purple-500 rounded-sm overflow-hidden cursor-pointer"
+            className="group px-5 sm:px-8 py-3 sm:py-4 relative bg-transparent border-2 border-purple-500 rounded-sm overflow-hidden cursor-pointer w-full sm:w-auto"
           >
-            <span className="relative z-10 text-purple-500 font-mono tracking-wider group-hover:text-black transition-colors duration-300">
+            <span className="relative z-10 text-purple-500 font-mono text-xs sm:text-sm tracking-wide sm:tracking-wider group-hover:text-black transition-colors duration-300">
               &gt; {chooseLang === "FR" ? "ÉTABLIR_LA_CONNEXION" : "ESTABLISH_CONNECTION"}
 
               <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-base text-purple-500">
