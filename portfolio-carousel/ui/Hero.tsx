@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroCyberpunk() {
@@ -190,12 +191,122 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
 
       {/* Contenu principal avec effet 3D */}
       <motion.div
-        className="relative z-20 text-center px-4 max-w-6xl"
+        className="relative z-20 flex flex-col lg:flex-row items-center justify-center gap-12 px-4 max-w-7xl w-full"
         style={{
           transform: `perspective(1000px) rotateX(${mousePosition.y * 0.5}deg) rotateY(${mousePosition.x * 0.5}deg)`,
           ...glitchStyle,
         }}
       >
+
+        {/* Hologram Photo */}
+        <motion.div
+          className="relative flex-shrink-0 flex flex-col items-center justify-center"
+          animate={{ y: [0, -12, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          {/* Anneaux rotatifs */}
+          <motion.div
+            className="absolute w-44 h-44 lg:w-72 lg:h-72 rounded-full"
+            style={{ border: '1px solid rgba(0,255,255,0.2)' }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute w-52 h-52 lg:w-80 lg:h-80 rounded-full"
+            style={{ border: '1px dashed rgba(168,85,247,0.2)' }}
+            animate={{ rotate: -360 }}
+            transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute w-36 h-36 lg:w-64 lg:h-64 rounded-full"
+            style={{ border: '1px solid rgba(0,255,255,0.1)' }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Container hologramme */}
+          <div
+            className="relative w-36 h-36 lg:w-60 lg:h-60 rounded-full overflow-hidden"
+            style={{
+              boxShadow: '0 0 25px rgba(0,255,255,0.5), 0 0 60px rgba(0,255,255,0.2), 0 0 100px rgba(0,255,255,0.08)',
+              border: '1px solid rgba(0,255,255,0.5)',
+            }}
+          >
+            <Image
+              src="/images/photo_me.png"
+              alt="Cédric Kuchen"
+              fill
+              sizes="(max-width: 1024px) 144px, 240px"
+              loading="eager"
+              priority
+              className="object-cover"
+              style={{ filter: 'grayscale(0.6) brightness(0.85) contrast(1.15) saturate(0.4)' }}
+            />
+
+            {/* Teinte cyan */}
+            <div
+              className="absolute inset-0"
+              style={{ background: 'rgba(0,220,255,0.18)', mixBlendMode: 'screen' }}
+            />
+
+            {/* Scanlines horizontales */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 4px)',
+              }}
+            />
+
+            {/* Sweep shimmer */}
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(110deg, transparent 25%, rgba(0,255,255,0.28) 50%, transparent 75%)',
+              }}
+              animate={{ x: ['-160%', '160%'] }}
+              transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
+            />
+
+            {/* Flicker */}
+            <motion.div
+              className="absolute inset-0"
+              style={{ background: 'rgba(0,255,255,0.08)' }}
+              animate={{ opacity: [0.08, 0.35, 0.05, 0.2, 0.05, 0.3, 0.05] }}
+              transition={{ duration: 0.4, repeat: Infinity, repeatDelay: 4 }}
+            />
+
+            {/* Glitch horizontal slice */}
+            {glitchIntensity > 0 && (
+              <div
+                className="absolute left-0 right-0 h-3"
+                style={{
+                  top: `${30 + Math.random() * 40}%`,
+                  background: 'rgba(0,255,255,0.4)',
+                  mixBlendMode: 'screen',
+                  transform: `translateX(${(Math.random() - 0.5) * 12}px)`,
+                }}
+              />
+            )}
+          </div>
+
+          {/* Base de projection */}
+          <div
+            className="w-28 lg:w-48 h-2 mt-3 rounded-full"
+            style={{ background: 'radial-gradient(ellipse, rgba(0,255,255,0.45) 0%, transparent 70%)' }}
+          />
+
+          {/* Label */}
+          <motion.div
+            className="mt-2 font-mono text-xs text-cyan-400/50 tracking-widest"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            ▸ CEDRIC_KUCHEN.holo
+          </motion.div>
+        </motion.div>
+
+        {/* Contenu texte */}
+        <div className="flex-1 text-center max-w-2xl">
         {/* Badge "ONLINE" clignotant */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -405,13 +516,14 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
             <p className="text-cyan-400">$ █ system_info</p>
             <p className="text-gray-400">OS: Linux_2077</p>
             <p className="text-gray-400">USER: cedric_kuchen</p>
-            <p className="text-gray-400">STATUS: 
+            <p className="text-gray-400">STATUS:
               <span className="text-green-400 animate-pulse"> ACTIVE</span>
             </p>
             <p className="text-purple-400">TIME: {time.toLocaleTimeString()}</p>
           </div>
         </motion.div>
 
+        </div>{/* fin contenu texte */}
       </motion.div>
 
       {/* Effets de lumière néon latéraux */}
