@@ -385,12 +385,24 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
               );
             })}
 
+            {/* Glow layer — séparé du gradient pour compat Firefox */}
+            <span
+              className="absolute text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black text-cyan-400 block w-full"
+              aria-hidden="true"
+              style={{
+                transform: "translateZ(8px)",
+                filter: "blur(10px)",
+                opacity: 0.65,
+              }}
+            >
+              Cédric Kuchen
+            </span>
+
             {/* Face avant principale */}
             <span
               className="relative text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 block"
               style={{
                 transform: "translateZ(9px)",
-                filter: "drop-shadow(0 0 18px rgba(0,255,255,0.7)) drop-shadow(0 0 40px rgba(168,85,247,0.4))",
               }}
             >
               Cédric Kuchen
