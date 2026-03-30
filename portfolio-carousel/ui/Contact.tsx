@@ -21,15 +21,13 @@ export default function Contact() {
         <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-fuchsia-500 via-cyan-400 to-transparent opacity-80 shadow-[0_0_12px_#00ffff,0_0_30px_#ff00ff40]" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 flex flex-col min-h-[100dvh]">
-        {/* Espace en haut */}
-        <div className="pt-16 sm:pt-12 md:pt-16 lg:pt-20" />
+      <div className="container mx-auto px-4 relative z-10 flex flex-col min-h-[100dvh] justify-evenly">
 
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mx-auto mb-8 sm:mb-8 font-mono text-center"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mx-auto font-mono text-center"
         >
           <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
             &gt; {chooseLang === "FR" ? `TRAVAILLONS ENSEMBLE_` : `LET'S WORK TOGETHER_`}
@@ -40,12 +38,12 @@ export default function Contact() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-sm sm:text-base md:text-xl mb-10 sm:mb-10 md:mb-12 max-w-2xl mx-auto text-cyan-400 font-mono tracking-wide text-center px-2"
+          className="text-sm sm:text-base md:text-xl max-w-2xl mx-auto text-cyan-400 font-mono tracking-wide text-center px-2"
         >
           [ SYSTEM.MSG ] &gt; {chooseLang === "FR" ? `Prêt à transformer vos idées en réalité. Contactez-moi.` : `Ready to turn your ideas into reality? Contact me.`}
         </motion.p>
 
-        <div className='flex items-center justify-center w-full mb-12 sm:mb-12 md:mb-16'>
+        <div className='flex items-center justify-center w-full'>
           <motion.a
             href="mailto:cedric.kuchen@protonmail.com"
             whileHover={{ scale: 1.05 }}
@@ -61,7 +59,7 @@ export default function Contact() {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="mb-12 sm:mb-12 md:mb-16 relative flex justify-center"
+          className="relative flex justify-center"
         >
           <div className="relative">
             <div className="w-28 h-28 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.5)] relative">
@@ -83,7 +81,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="flex justify-center gap-6 sm:gap-4 md:gap-6 flex-wrap mb-16 sm:mb-16"
+          className="flex justify-center gap-6 sm:gap-4 md:gap-6 flex-wrap"
         >
           <motion.a
             href="https://github.com/TLRKiliann"
@@ -138,14 +136,12 @@ export default function Contact() {
           </motion.a>
         </motion.div>
 
-        <div className="flex-1" />
-
         {/* Copyright style cyberpunk */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.6 }}
-          className="text-xs text-cyan-500/50 mt-4 sm:mt-8 pb-4 sm:pb-6 pt-3 sm:pt-4 border-t border-cyan-500/20 font-mono text-center"
+          className="text-xs text-cyan-500/50 py-3 border-t border-cyan-500/20 font-mono text-center"
         >
           © {new Date().getFullYear()}&nbsp;Cédric Kuchen &gt; {chooseLang === "FR" ? `TOUS DROITS RÉSERVÉS_` : `ALL RIGHTS RESERVED_`}
         </motion.p>
