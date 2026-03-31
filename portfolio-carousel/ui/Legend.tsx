@@ -142,7 +142,7 @@ export default function Legend() {
         </div>
 
         {/* Cartes de projets */}
-        <div className="w-full flex flex-col lg:flex-row items-center justify-around m-auto gap-6 sm:gap-8 px-4 sm:px-0">
+        <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-around m-auto gap-6 sm:gap-8 px-4 sm:px-0">
           {/* Carte Expériences */}
           <div className="w-full lg:w-[48%] group relative">
             <div className="absolute -inset-0.5 bg-linear-to-r from-cyan-500 to-cyan-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
@@ -246,7 +246,7 @@ export default function Legend() {
         </div>
 
         {/* 2 Cartes de projets - colonne sur mobile, ligne sur desktop */}
-        <div className="w-full flex flex-col lg:flex-row items-center justify-around m-auto gap-6 sm:gap-8 px-4 sm:px-0">
+        <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-around m-auto gap-6 sm:gap-8 px-4 sm:px-0">
           {/* Carte API - plein largeur sur mobile */}
           <div className="w-full lg:w-[48%] group relative">
             <div className="absolute -inset-0.5 bg-linear-to-r from-cyan-500 to-cyan-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
