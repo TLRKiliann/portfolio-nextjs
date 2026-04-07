@@ -170,7 +170,7 @@ export default function SkillsCyberpunk() {
   }
 
   return (
-    <section ref={ref} id="skills-section" className="relative min-h-screen bg-black overflow-hidden py-32">
+    <section ref={ref} id="skills-section" className="relative min-h-screen bg-black overflow-hidden py-16">
       {/* Effet de scanlines */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-20"
         style={{
@@ -418,58 +418,13 @@ export default function SkillsCyberpunk() {
           transition={{ duration: 0.8, delay: 1.5 }}
           className="relative mt-16"
         >
-          <div className="relative mb-16">
-            <div className="absolute left-1/2 -translate-x-1/2 w-px h-16 bg-linear-to-b from-transparent via-cyan-500 to-transparent" />
-            <div className="absolute left-1/2 -translate-x-1/2 top-16 w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800 font-mono">
-              <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-800">
-                <div className="w-3 h-3 bg-red-500 rounded-full" />
-                <div className="w-3 h-3 bg-yellow-500 rounded-full" />
-                <div className="w-3 h-3 bg-green-500 rounded-full" />
-                <span className="text-xs text-gray-500 ml-2">system@cyberpunk:~$</span>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <span className="text-cyan-400 w-32">TOTAL_SKILLS:</span>
-                  <span className="text-white">{skills.length}</span>
-                  <span className="text-green-400 text-xs">[OK]</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-purple-400 w-32">CATEGORIES:</span>
-                  <span className="text-white">{Object.keys(groupedSkills).length}</span>
-                  <span className="text-green-400 text-xs">[OK]</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-pink-400 w-32">AVG_LEVEL:</span>
-                  <span className="text-white">
-                    {Math.round(skills.reduce((acc, s) => acc + s.level, 0) / skills.length)}%
-                  </span>
-                  <span className="text-green-400 text-xs">[OK]</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-yellow-400 w-32">MASTERED:</span>
-                  <span className="text-white">{skills.filter(s => s.level >= 85).length}</span>
-                  <span className="text-green-400 text-xs">[OK]</span>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-gray-800 flex items-center gap-2">
-                <span className="text-green-400">$</span>
-                <span className="text-cyan-400">./scan_skills</span>
-                <span className="text-gray-500 animate-pulse">_</span>
-              </div>
-            </div>
-          </div>
 
           <div className="text-center mt-16 text-gray-700 font-mono text-xs">
             <span className="text-cyan-400/50">[</span> SYSTEM_STATUS: ONLINE <span className="text-pink-400/50">]</span>
             <br />
             <span className="text-gray-800">© 2026 // NEO_TOKYO // v2.0.24</span>
           </div>
+
         </motion.div>
       </div>
     </section>
