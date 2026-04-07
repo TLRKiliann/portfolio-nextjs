@@ -81,7 +81,7 @@ export default function Legend() {
             <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
               &gt; {chooseLang === "FR" ? `TOUT EST UNE QUESTION DE LOGIQUE` : `IT'S ALL A MATTER OF LOGIC`} 
             </span>
-            <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2">_</span>
+            <span className="text-fuchsia-400 animate-pulse inline-block">_</span>
           </motion.h2>
           <motion.div
             animate={{ x: ['-100%', '100%'] }}
@@ -127,12 +127,12 @@ export default function Legend() {
         {/* Sous-titre avec effet scan */}
         <div className="relative my-12 sm:my-20 py-4">
           <div className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/10 to-transparent animate-scan" />
-          <h3 className="text-base sm:text-2xl font-bold text-center font-mono relative px-4">
+          <h3 className="text-lg sm:text-2xl font-bold text-center font-mono relative px-4">
             <span className="text-cyan-400 animate-pulse inline-block mr-1 sm:mr-2">&gt;</span>
             <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
               {chooseLang === "FR" ? `MES EXPÉRIENCES` : `MY EXPERIENCES`}
             </span>
-            <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2 mb-4">_</span>
+            <span className="text-fuchsia-400 animate-pulse inline-block mb-4">_</span>
           </h3>
           <motion.div
             animate={{ x: ['-100%', '100%'] }}
@@ -142,9 +142,9 @@ export default function Legend() {
         </div>
 
         {/* Cartes de projets */}
-        <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-around m-auto gap-6 sm:gap-8 px-4 sm:px-0">
+        <div className="w-full flex flex-col lg:flex-row items-start justify-evenly m-auto gap-8 sm:gap-8 px-4 sm:px-0">
           {/* Carte Expériences */}
-          <div className="w-full lg:w-[48%] group relative">
+          <div className="w-full lg:w-[40%] group relative">
             <div className="absolute -inset-0.5 bg-linear-to-r from-cyan-500 to-cyan-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
             <div className="relative p-4 sm:p-6 rounded-xl bg-black/80 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -154,11 +154,11 @@ export default function Legend() {
                 <div className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400 rounded-full animate-pulse" />
                   <h4 className="text-lg sm:text-xl font-bold font-mono text-cyan-400">
-                    {`[ Expériences ]`}
+                    {chooseLang === "FR" ? `[ Expériences ]` : `[ Experiences ]`}
                   </h4>
                 </div>
                 <div className="text-[8px] sm:text-[10px] font-mono text-cyan-400/50 border border-cyan-400/30 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
-                  Expériences
+                  {chooseLang === "FR" ? "Expériences" : "Experiences"}
                 </div>
               </div>
               
@@ -186,7 +186,7 @@ export default function Legend() {
           </div>
 
           {/* Carte Backend */}
-          <div className="w-full lg:w-[48%] group relative">
+          <div className="w-full lg:w-[40%] group relative">
             <div className="absolute -inset-0.5 bg-linear-to-r from-fuchsia-500 to-fuchsia-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
             <div className="relative p-4 sm:p-6 rounded-xl bg-black/80 backdrop-blur-sm border border-fuchsia-500/30 hover:border-fuchsia-500 transition-all duration-300 overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-fuchsia-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -226,17 +226,15 @@ export default function Legend() {
           </div>
         </div>
 
-
-
         {/* 2 Sous-titre avec effet scan */}
         <div className="relative my-12 sm:my-20 py-4">
           <div className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/10 to-transparent animate-scan" />
-          <h3 className="text-base sm:text-2xl font-bold text-center font-mono relative px-4">
+          <h3 className="text-lg sm:text-2xl font-bold text-center font-mono relative px-4">
             <span className="text-cyan-400 animate-pulse inline-block mr-1 sm:mr-2">&gt;</span>
             <span className="bg-linear-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
-              {chooseLang === "FR" ? `MES DERNIERS PROJETS RÉALISÉS POUR L'ÉVEIL` : `MY LATEST PROJECTS FOR L'ÉVEIL`}
+              {chooseLang === "FR" ? `MES DERNIERS PROJETS RÉALISÉS POUR L'EVEIL` : `MY LATEST PROJECTS FOR`}
             </span>
-            <span className="text-fuchsia-400 animate-pulse inline-block ml-1 sm:ml-2 mb-4">_</span>
+            <span className="text-fuchsia-400 animate-pulse inline-block mb-4">_</span>
           </h3>
           <motion.div
             animate={{ x: ['-100%', '100%'] }}
@@ -246,9 +244,9 @@ export default function Legend() {
         </div>
 
         {/* 2 Cartes de projets - colonne sur mobile, ligne sur desktop */}
-        <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-around m-auto gap-6 sm:gap-8 px-4 sm:px-0">
+        <div className="w-full flex flex-col lg:flex-row items-start justify-evenly m-auto gap-8 sm:gap-8 px-4 sm:px-0">
           {/* Carte API - plein largeur sur mobile */}
-          <div className="w-full lg:w-[48%] group relative">
+          <div className="w-full lg:w-[40%] group relative">
             <div className="absolute -inset-0.5 bg-linear-to-r from-cyan-500 to-cyan-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
             <div className="relative p-4 sm:p-6 rounded-xl bg-black/80 backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -290,7 +288,7 @@ export default function Legend() {
           </div>
 
           {/* Carte SPA - plein largeur sur mobile */}
-          <div className="w-full lg:w-[48%] group relative">
+          <div className="w-full lg:w-[40%] group relative">
             <div className="absolute -inset-0.5 bg-linear-to-r from-fuchsia-500 to-fuchsia-300 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500" />
             <div className="relative p-4 sm:p-6 rounded-xl bg-black/80 backdrop-blur-sm border border-fuchsia-500/30 hover:border-fuchsia-500 transition-all duration-300 overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-fuchsia-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -332,14 +330,6 @@ export default function Legend() {
           </div>
         </div>
 
-
-
-
-
-
-
-
-
         {/* Ligne de fin cyberpunk */}
         <div className="mt-16 sm:mt-32 text-center">
           <div className="inline-flex items-center gap-2 sm:gap-4 text-[8px] sm:text-[10px] font-mono text-gray-600">
@@ -369,4 +359,4 @@ export default function Legend() {
       `}</style>
     </section>
   );
-}
+};

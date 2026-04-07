@@ -92,7 +92,6 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
       // const y = Math.random() * 10 - 5;
       const x = (Math.random() - 0.5) * 10; // Valeur entre -5 et 5
       const y = (Math.random() - 0.5) * 10;
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setGlitchOffset({ x, y });
     } else {
       setGlitchOffset({ x: 0, y: 0 });
@@ -106,7 +105,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
 
   if (!mounted) {
     return (
-      <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative min-h-svh flex items-center justify-center overflow-hidden bg-black">
         <div className="text-cyan-400 font-mono text-sm sm:text-4xl md:text-5xl animate-pulse text-center px-4 whitespace-nowrap">
           &gt; INITIALIZING CYBERPUNK SYSTEM...
         </div>
@@ -116,7 +115,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
 
   return (
     <section
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-black"
+      className="relative min-h-svh flex items-center justify-center overflow-hidden bg-black"
     >
       {/* Grille cyberpunk animée */}
       <svg className="absolute inset-0 w-full h-full opacity-20">
@@ -188,7 +187,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
 
         {/* Hologram Photo */}
         <motion.div
-          className="relative flex-shrink-0 flex flex-col items-center justify-center"
+          className="relative shrink-0 flex flex-col items-center justify-center"
           animate={{ y: [0, -12, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -306,23 +305,6 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
           </span>
         </motion.div>
 
-        {/* Titre principal avec effet néon */}
-        {/* <motion.h1
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, type: "spring" }}
-          className="relative mb-4"
-        >
-          <span className="absolute inset-0 text-7xl md:text-9xl font-black text-cyan-500 blur-2xl opacity-50 animate-pulse">
-            Cédric Kuchen
-          </span>
-          <span className="relative text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 [text-shadow:0_0_30px_rgba(0,255,255,0.5)]">
-            Cédric Kuchen
-          </span>
-        </motion.h1> */}
-
-
-
         <motion.h1
           id="cyber-title"
           initial={{ opacity: 0, scale: 0.5 }}
@@ -393,8 +375,6 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
           </motion.div>
         </motion.h1>
 
-
-
         {/* Sous-titre avec glitch */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -405,13 +385,13 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
           <span className="text-gray-400">&lt;</span>
           <TypeAnimation
             sequence={[
-              'CYBER_FRONT-END',
+              'FRONT-END_',
               2000,
-              'HACKER_BACK-END',
+              'BACK-END_',
               2000,
-              'FULL-STACK_DEV',
+              'CYBER-SECURITY_',
               2000,
-              'API WELCOME_ !',
+              'READY TO BE HIRED_',
               2000,
             ]}
             wrapper="span"
@@ -467,7 +447,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
             <span className="relative z-10 text-cyan-500 font-mono text-xs sm:text-sm tracking-wide sm:tracking-wider group-hover:text-black transition-colors duration-300">
               &gt; {chooseLang === "FR" ? "INITIALISER_PROTOCOLE" : "INITIALIZE_PROTOCOL"}
 
-                <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-base text-cyan-500">
+                <span className="absolute mx-auto -top-1 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-base text-cyan-500">
                   {chooseLang === "FR" ? "⚡ LANCER_LE_SYSTÈME //" : "⚡ LAUNCH_SYSTEM //"}
                 </span>
 
@@ -489,7 +469,7 @@ const [binaryData, setBinaryData] = useState<Array<{left: number, top: number, c
             <span className="relative z-10 text-purple-500 font-mono text-xs sm:text-sm tracking-wide sm:tracking-wider group-hover:text-black transition-colors duration-300">
               &gt; {chooseLang === "FR" ? "ÉTABLIR_LA_CONNEXION" : "ESTABLISH_CONNECTION"}
 
-              <span className="absolute mx-auto top-0 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-base text-purple-500">
+              <span className="absolute mx-auto -top-1 left-1/2 -translate-x-1/2 h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-base text-purple-500">
                 {chooseLang === "FR" ? "◈ ENVOYER_UN_SIGNAL" : "◈ SEND_A_SIGNAL"}
               </span>
 
